@@ -14,9 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+    <?php include "templates/navbar.php" ?>
     <div>
         <div class="w-25 p-3">
-            Accedi al Sito
+            <h1>Accedi al Sito</h1>
             <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
                 <div class="container">
                     <div class="form-group">
