@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">Palestra Bella</a>
+    <a class="navbar-brand" href="#">
+      <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+      PeppeGym
+    </a>
     <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
