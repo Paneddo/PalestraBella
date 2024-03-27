@@ -7,13 +7,13 @@
     <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == './index.php') echo 'active' ?>" aria-current="page" href="/">Home</a>
+          <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'index.php') echo 'active' ?>" aria-current="page" href="./">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == './corsi.php') echo 'active' ?>" href="/corsi.php">Corsi</a>
+          <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'corsi.php') echo 'active' ?>" href="./corsi.php">Corsi</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == './login.php') echo 'active' ?>" href="/login.php">Accedi</a>
+          <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'login.php') echo 'active' ?>" href="./login.php">Accedi</a>
         </li>
       </ul>
     </div>
