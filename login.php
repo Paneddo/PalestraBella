@@ -1,39 +1,76 @@
 <?php
+session_start();
+
+function test_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+$login_error = '';
+$username = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include "conn.php";
+    $username = test_input($_POST['email']);
+    $password = test_input($_POST['password']);
+
+    $stmt = mysqli_prepare($conn, "SELECT idUtente, password, tipo FROM utente WHERE email = ?");
+
+    mysqli_stmt_bind_param($stmt, "s", $username);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+    mysqli_close($conn);
+
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        if (password_verify($password, $row['password'])) {
+            $_SESSION['id'] = $row['idUtente'];
+            $_SESSION['tipo'] = $row['tipo'];
+            header("location: ./index.php");
+            exit();
+        }
+    }
+    $login_error = "Accesso Negato";
 }
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="it">
 
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="stile.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
 
 <body>
-    <?php include "templates/navbar.php" ?>
-    <div>
-        <div class="w-25 p-3">
-            <h1>Accedi al Sito</h1>
-            <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-                <div class="container">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" name="email" placeholder="Enter email">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" name="password" placeholder="Password">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <br>
-                    <small id="emailHelp" class="form-text text-muted">Hai dimenticato la password?</small>
-                </div>
-            </form>
+
+    <h2>Login</h2>
+
+    <form action="<?php echo ($_SERVER['PHP_SELF']); ?>" method="post">
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" name="email" placeholder="Email..." id="email" value="<?php echo ($email); ?>">
         </div>
-    </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" name="password" placeholder="Password" id="password">
+        </div>
+        <div>
+            <button type="submit">Accedi</button>
+        </div>
+        <?php
+        if (!empty($login_error)) {
+            echo '<div style="color: red;">' . $login_error . '</div>';
+        }
+        ?>
+    </form>
+
 </body>
 
 </html>

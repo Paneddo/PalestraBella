@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <?php include "templates/header.html" ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corsi Palestra</title>
+    <title>I Nostri Corsi</title>
     <style>
         /* Stili CSS per la formattazione della pagina */
         body {
@@ -11,30 +13,38 @@
             margin: 0;
             padding: 0;
         }
+
         .container {
             width: 80%;
             margin: auto;
             padding: 20px;
         }
+
         h2 {
             color: #333;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
-        th, td {
+
+        th,
+        td {
             padding: 10px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
+
         th {
             background-color: #f2f2f2;
         }
     </style>
 </head>
+
 <body>
+    <?php include "templates/navbar.php" ?>
     <div class="container">
         <h2>Corsi Offerti</h2>
         <table>
@@ -62,4 +72,5 @@
         </table>
     </div>
 </body>
+
 </html>

@@ -1,45 +1,55 @@
+<?php
+session_start();
+if ($_SESSION['tipo'] !== 'segretaria') {
+    header("location: ./accessoNegato.php");
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Aggiungi Corso</title>
+    <link href="./styles/form.css" rel="stylesheet" />
+
 </head>
+
 <body>
-    <h1>Aggiungi un nuovo corso</h1>
-    <form action="aggiungi_corso.php" method="post">
+    <h1>AGGIUNGI UN CORSO</h1>
+    <?php if (!empty($message)) : ?>
+        <p><?php echo $message; ?></p>
+    <?php endif; ?>
+    <form action="<php echo $_SERVER['PHP_SELF'] ?"> method="post">
         <label for="titolo">Titolo del corso:</label><br>
-        <input type="text" id="titolo" name="titolo" required><br><br>
-        
+        <input type="text" id="titolo" name="titolo" placeholder="Titolo..." required><br><br>
+
         <label for="descrizione">Descrizione:</label><br>
-        <textarea id="descrizione" name="descrizione" rows="4" cols="50" required></textarea><br><br>
-        
+        <textarea id="descrizione" name="descrizione" rows="4" cols="50" placeholder="Descrizione..." required></textarea><br><br>
+
         <label for="categoria">Categoria:</label><br>
-        <input type="text" id="categoria" name="categoria" required><br><br>
-        
+        <select id="categoria" name="categoria" required>
+            <option value="" disabled selected hidden>Seleziona una categoria</option>
+            <option value="Cardio">Cardio</option>
+            <option value="Sollevamento pesi">Sollevamento pesi</option>
+            <option value="Yoga">Yoga</option>
+            <option value="Pilates">Pilates</option>
+            <option value="Zumba">Zumba</option>
+            <option value="Boxe">Boxe</option>
+        </select><br><br>
+
         <label for="istruttore">Istruttore:</label><br>
-        <input type="text" id="istruttore" name="istruttore" required><br><br>
-        
-        <input type="submit" value="Aggiungi Corso">
+        <select id="istruttore" name="istruttore" required>
+            <option value="" disabled selected hidden>Seleziona un istruttore</option>
+            <option value="istruttore1">Istruttore 1</option>
+            <option value="istruttore2">Istruttore 2</option>
+        </select><br><br>
+
+        <button type="submit">Aggiungi Corso</button>
     </form>
 </body>
+
 </html>
-
-<?php
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $titolo = $_POST["titolo"];
-    $descrizione = $_POST["descrizione"];
-    $categoria = $_POST["categoria"];
-    $istruttore = $_POST["istruttore"];
-
-    $stmt = $pdo->prepare("INSERT INTO corsi (titolo, descrizione, categoria, istruttore) VALUES (?, ?, ?, ?)");
-    $stmt->execute([$titolo, $descrizione, $categoria, $istruttore]);
-    
-    if ($stmt) {
-        echo "Corso aggiunto con successo!";
-    } else {
-        echo "Si è verificato un errore durante l'aggiunta del corso.";
-    }
-}
-?>

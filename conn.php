@@ -1,10 +1,14 @@
 <?php
+// Dati di connessione  
 $servername = "localhost";
-$db_username = "root";
-$db_password = "";
+$username_db = "root";
+$password_db = "";
+$db = "palestra";
 
-$conn = mysqli_connect($servername, $db_username, $db_password);
+// Creazione della connessione 
+$conn = mysqli_connect($servername, $username_db, $password_db, $db);
 
+// Test della connessione 
 if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+     die("Connection failed: " . mysqli_connect_error());
 }

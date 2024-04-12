@@ -12,9 +12,24 @@
         <li class="nav-item">
           <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'corsi.php') echo 'active' ?>" href="./corsi.php">Corsi</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'login.php') echo 'active' ?>" href="./login.php">Accedi</a>
-        </li>
+        <?php
+        if (!isset($_SESSION['id'])) {
+        ?>
+          <li class="nav-item">
+            <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'login.php') echo 'active' ?>" href="./login.php">Accedi</a>
+          </li>
+        <?php
+        } else {
+        ?>
+          <li class="nav-item">
+            <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'profilo.php') echo 'active' ?>" href="./profilo.php">Profilo</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./logout.php?page=<?php echo $_SERVER['PHP_SELF'] ?>">Logout</a>
+          </li>
+        <?php
+        }
+        ?>
       </ul>
     </div>
   </div>
