@@ -11,6 +11,7 @@ function test_input($data)
 
 $login_error = '';
 $username = '';
+$email = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include "conn.php";
