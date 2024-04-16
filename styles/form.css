@@ -9,55 +9,55 @@ input[type="text"],
 textarea,
 select {
     border-radius: 15px;
-    border: 2px solid #636364; 
+    border: 2px solid #636364;
     color: #636364;
-    padding: 15px; 
-    box-sizing: border-box; 
-    font-family: 'Poppins', sans-serif; 
+    padding: 15px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
     width: 100%;
     background-color: black;
 }
 
 label {
-    display: block; 
-    margin-bottom: 5px; 
+    display: block;
+    margin-bottom: 5px;
     color: #ffbf00;
 }
 
 form {
-    max-width: 500px; 
-    margin: 0 auto; 
+    max-width: 500px;
+    margin: 0 auto;
     padding: 20px;
 }
 
 option {
-    color: #636364; 
+    color: #636364;
 }
 
 h1 {
     color: #ffbf00;
-    text-align: center; 
+    text-align: center;
 }
 
 .message {
     margin-bottom: 10px;
-    padding: 10px; 
-    border-radius: 5px; 
+    padding: 10px;
+    border-radius: 5px;
     background-color: #dff0d8;
-    border: 1px solid #d0e9c6; 
-    color: #3c763d; 
+    border: 1px solid #d0e9c6;
+    color: #3c763d;
 }
 
 button[type="submit"] {
     text-align: center;
     border-radius: 15px;
-    padding: 15px; 
-    box-sizing: border-box; 
-    font-family: 'Poppins', sans-serif; 
+    padding: 15px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
     width: 100%;
     background-color: #ffbf00;
-    color: white; 
-    border: 2px solid #ffbf00; 
+    color: white;
+    border: 2px solid #ffbf00;
     cursor: pointer;
 }
 

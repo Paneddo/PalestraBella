@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="./">
       <img src="/images/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
       PeppeGym
     </a>
@@ -25,7 +25,7 @@
             <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'profilo.php') echo 'active' ?>" href="./profilo.php">Profilo</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./logout.php?page=<?php echo $_SERVER['PHP_SELF'] ?>">Logout</a>
+            <a class="nav-link" href="./logout.php">Logout</a>
           </li>
         <?php
         }

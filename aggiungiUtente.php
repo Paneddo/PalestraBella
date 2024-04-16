@@ -16,26 +16,29 @@ function test_input($data)
 }
 
 $nome = '';
-$errore = '';
+$cognome = '';
 $email = '';
+$cellulare = '';
+$errore = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = test_input($_POST['nome']);
+    $cognome = test_input($_POST['cognome']);
     $password = test_input($_POST['password']);
-    $conferma_password = $_POST['conferma-password'];
-    if (empty($password) || empty($conferma_password)) {
-        $errore = 'Compila tutti i Campi';
-    } else if (strcmp($password, $conferma_password) !== 0) {
-        $errore = 'Le Password non Corrispondono';
-    } else {
-        $hash = password_hash($password, PASSWORD_DEFAULT);
-        $query = "INSERT INTO utente (nome, password) VALUES ('$nome', '$hash')";
+    $email = test_input($_POST['email']);
+    $cellulare = test_input($_POST['cellulare']);
+    $tipo = test_input($_POST['tipo']);
 
+    $hash = password_hash($password, PASSWORD_DEFAULT);
 
-        mysqli_query($conn, $query);
-        mysqli_close($conn);
-        header("location: ./login.php");
-        exit();
-    }
+    $stmt = mysqli_prepare($conn, "INSERT INTO utente (nome, password, email, cellulare, tipo) VALUES (?, ?, ?, ?, ?, ?)");
+
+    mysqli_stmt_bind_param($stmt, "ssssss", $nome, $cognome, $password, $email, $cellulare, $tipo);
+    mysqli_stmt_execute($stmt);
+
+    mysqli_close($conn);
+
+    header("location: ./login.php");
+    exit();
 }
 ?>
 
@@ -44,7 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <title>Registrazione</title>
-    <link rel="stylesheet" href="./styles/style.css">
+    <?php include "templates/header.html" ?>
+    <link rel="stylesheet" href="styles/form.css">
 </head>
 
 <body>
@@ -69,9 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <label for="tipo">Tipo</label>
             <select name="tipo">
+                <option value="cliente">Cliente</option>
                 <option value="istruttore">Istruttore</option>
                 <option value="segretaria">Segretaria</option>
-                <option value="cliente">Cliente</option>
             </select>
             <br>
             <input type="submit" value="Invio" name="submit">
