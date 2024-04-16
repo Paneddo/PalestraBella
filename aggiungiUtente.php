@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-
+    <?php include "templates/navbar.php" ?>
     <div>
         <form action="<?php echo $_SERVER["PHP_SELF"] ?>" method="post">
             <label for="nome">Nome</label>

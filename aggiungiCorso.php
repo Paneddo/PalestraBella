@@ -10,15 +10,13 @@ if ($_SESSION['tipo'] !== 'segretaria') {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Aggiungi Corso</title>
-    <link href="./styles/form.css" rel="stylesheet" />
-
+    <?php include "templates/header.html" ?>
+    <link rel="stylesheet" href="styles/form.css">
 </head>
 
 <body>
+    <?php include "templates/navbar.php" ?>
     <h1>AGGIUNGI UN CORSO</h1>
     <?php if (!empty($message)) : ?>
         <p><?php echo $message; ?></p>
