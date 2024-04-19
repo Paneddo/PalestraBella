@@ -7,22 +7,6 @@ if ($_SESSION['tipo'] !== 'segretaria') {
 
 include "conn.php";
 
-if ($_FILES['filename']['error'] === UPLOAD_ERR_OK) {
-    $tmp_name = $_FILES['filename']['tmp_name'];
-    $name = $_FILES['filename']['name'];
-
-    $upload_dir = 'uploads/';
-
-    if (move_uploaded_file($tmp_name, $upload_dir . $name)) {
-        echo "File uploaded successfully.";
-    } else {
-        echo "Failed to upload file.";
-    }
-} else {
-    echo "Error uploading file. Error code: " . $_FILES['filename']['error'];
-}
-
-
 function test_input($data)
 {
     $data = trim($data);
@@ -37,6 +21,21 @@ $email = '';
 $cellulare = '';
 $errore = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_FILES['filename']['error'] === UPLOAD_ERR_OK) {
+        $tmp_name = $_FILES['filename']['tmp_name'];
+        $name = $_FILES['filename']['name'];
+
+        $upload_dir = 'uploads/';
+
+        if (move_uploaded_file($tmp_name, $upload_dir . $name)) {
+            echo "File uploaded successfully.";
+        } else {
+            echo "Failed to upload file.";
+        }
+    } else {
+        echo "Error uploading file. Error code: " . $_FILES['filename']['error'];
+    }
+
     $nome = test_input($_POST['nome']);
     $cognome = test_input($_POST['cognome']);
     $email = test_input($_POST['email']);
