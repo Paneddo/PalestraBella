@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="./">
-            <img src="/images/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            <img src="./images/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
             PeppeGym
         </a>
         <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
