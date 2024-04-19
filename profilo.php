@@ -36,7 +36,7 @@ if (mysqli_num_rows($result) > 0) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Form</title>
     <meta name="description" content="">
-    <?php include "templates/header.html" ?>
+    <?php include "templates/head.html" ?>
 </head>
 
 <body>

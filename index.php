@@ -6,7 +6,7 @@ session_start();
 <html lang="en">
 
 <head>
-    <?php include "templates/header.html" ?>
+    <?php include "templates/head.html" ?>
     <title>Palestra Bella</title>
 </head>
 

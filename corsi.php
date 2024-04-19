@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php include "templates/header.html" ?>
+    <?php include "templates/head.html" ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>I Nostri Corsi</title>

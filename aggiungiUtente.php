@@ -47,38 +47,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <title>Registrazione</title>
-    <?php include "templates/header.html" ?>
+    <?php include "templates/head.html" ?>
     <link rel="stylesheet" href="styles/form.css">
 </head>
 
 <body>
     <?php include "templates/navbar.php" ?>
+    <h1>AGGIUNGI UN UTENTE</h1>
     <div>
         <form action="<?php echo $_SERVER["PHP_SELF"] ?>" method="post">
-            <label for="nome">Nome</label>
+            <label for="nome">Nome:</label><br>
             <input type="text" id="nome" value="<?php echo $nome ?>" name="nome" placeholder="Nome...">
-            <br>
+            <br><br>
 
-            <label for="cognome">Cognome</label>
+            <label for="cognome">Cognome:</label><br>
             <input type="text" id="cognome" value="<?php echo $cognome ?>" name="cognome" placeholder="Cognome...">
-            <br>
+            <br><br>
 
-            <label for="email">Email</label>
+            <label for="email">Email:</label><br>
             <input type="email" id="email" value="<?php echo $email ?>" name="email" placeholder="Email...">
-            <br>
+            <br><br>
 
-            <label for="cellulare">Cellulare</label>
+            <label for="cellulare">Cellulare:</label><br>
             <input type="text" id="cellulare" value="<?php echo $cellulare ?>" name="cellulare" placeholder="Cellulare...">
-            <br>
+            <br><br>
 
-            <label for="tipo">Tipo</label>
+            <label for="tipo">Tipo:</label><br>
             <select name="tipo">
                 <option value="cliente">Cliente</option>
                 <option value="istruttore">Istruttore</option>
                 <option value="segretaria">Segretaria</option>
             </select>
-            <br>
-            <input type="submit" value="Invio" name="submit">
+            <br><br>
+            <button type="submit">Aggiungi Utente</button>
         </form>
 
         <div id="errore">

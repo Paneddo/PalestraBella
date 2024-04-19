@@ -11,7 +11,7 @@ if ($_SESSION['tipo'] !== 'segretaria') {
 
 <head>
     <title>Aggiungi Corso</title>
-    <?php include "templates/header.html" ?>
+    <?php include "templates/head.html" ?>
     <link rel="stylesheet" href="styles/form.css">
 </head>
 
@@ -21,7 +21,7 @@ if ($_SESSION['tipo'] !== 'segretaria') {
     <?php if (!empty($message)) : ?>
         <p><?php echo $message; ?></p>
     <?php endif; ?>
-    <form action="<php echo $_SERVER['PHP_SELF'] ?"> method="post">
+    <form action="<php echo $_SERVER['PHP_SELF'] ?>" method="post">
         <label for="titolo">Titolo del corso:</label><br>
         <input type="text" id="titolo" name="titolo" placeholder="Titolo..." required><br><br>
 
