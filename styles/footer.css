@@ -1,0 +1,73 @@
+@import url('https://fonts.cdnfonts.com/css/port-lligat-slab');
+
+.contact {
+    text-align: left;
+    float: left;
+    margin-bottom: 90px;
+}
+
+.fa {
+    font-size: 30px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    padding: 6px;
+    border: 3px solid orange;
+    border-radius: 30%;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-instagram {
+    color: orange;
+}
+
+.fa-facebook {
+    color: orange;
+}
+
+.fa-youtube {
+    color: orange;
+}
+
+.fa-map-marker {
+    color: orange;
+    margin-right: 30px;
+}
+
+.fa-phone {
+    color: orange;
+    margin-right: 30px;
+}
+
+.fa-envelope {
+    color: orange;
+    margin-right: 30px;
+}
+
+.outer {
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+}
+
+h1 {
+    font-family: "Port Lligat Slab", serif;
+    font-weight: 700;
+    font-size: 50px;
+    color: white;
+}
+
+p {
+    font-family: "Port Lligat Slab", serif;
+    font-weight: 500;
+    font-style: normal;
+    color: white;
+}
