@@ -6,6 +6,7 @@ body {
 
 input[type="text"],
 input[type="email"],
+input[type="file"],
 textarea,
 select {
     border-radius: 15px;

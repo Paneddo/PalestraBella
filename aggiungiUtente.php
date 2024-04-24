@@ -21,18 +21,32 @@ $email = '';
 $cellulare = '';
 $errore = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_FILES['filename']['error'] === UPLOAD_ERR_OK) {
+        $tmp_name = $_FILES['filename']['tmp_name'];
+        $name = $_FILES['filename']['name'];
+
+        $upload_dir = 'uploads/';
+
+        if (move_uploaded_file($tmp_name, $upload_dir . $name)) {
+            echo "File uploaded successfully.";
+        } else {
+            echo "Failed to upload file.";
+        }
+    } else {
+        echo "Error uploading file. Error code: " . $_FILES['filename']['error'];
+    }
+
     $nome = test_input($_POST['nome']);
     $cognome = test_input($_POST['cognome']);
-    $password = test_input($_POST['password']);
     $email = test_input($_POST['email']);
     $cellulare = test_input($_POST['cellulare']);
     $tipo = test_input($_POST['tipo']);
 
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
-    $stmt = mysqli_prepare($conn, "INSERT INTO utente (nome, password, email, cellulare, tipo) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt = mysqli_prepare($conn, "INSERT INTO utente (nome, email, cellulare, tipo) VALUES (?, ?, ?, ?, ?)");
 
-    mysqli_stmt_bind_param($stmt, "ssssss", $nome, $cognome, $password, $email, $cellulare, $tipo);
+    mysqli_stmt_bind_param($stmt, "sssss", $nome, $cognome, $password, $email, $cellulare, $tipo);
     mysqli_stmt_execute($stmt);
 
     mysqli_close($conn);
@@ -49,13 +63,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Registrazione</title>
     <?php include "templates/head.html" ?>
     <link rel="stylesheet" href="styles/form.css">
+    <script src="js/utente.js" defer></script>
 </head>
 
 <body>
     <?php include "templates/navbar.php" ?>
     <h1>AGGIUNGI UN UTENTE</h1>
     <div>
-        <form action="<?php echo $_SERVER["PHP_SELF"] ?>" method="post">
+        <form action="<?php echo $_SERVER["PHP_SELF"] ?>" method="post" enctype="multipart/form-data">
             <label for="nome">Nome:</label><br>
             <input type="text" id="nome" value="<?php echo $nome ?>" name="nome" placeholder="Nome...">
             <br><br>
@@ -73,12 +88,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <br><br>
 
             <label for="tipo">Tipo:</label><br>
-            <select name="tipo">
+            <select name="tipo" id="tipo">
                 <option value="cliente">Cliente</option>
                 <option value="istruttore">Istruttore</option>
                 <option value="segretaria">Segretaria</option>
             </select>
             <br><br>
+
+            <input id="img-upload" name="filename">
+            <br>
             <button type="submit">Aggiungi Utente</button>
         </form>
 
