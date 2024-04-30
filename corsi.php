@@ -2,7 +2,7 @@
 include "conn.php";
 
 
-$corsi = array();
+$recensioni = array();
 
 include "conn.php";
 
@@ -14,7 +14,7 @@ $result = mysqli_stmt_get_result($stmt);
 mysqli_close($conn);
 
 while ($row = mysqli_fetch_assoc($result)) {
-    $corsi[] = $row;
+    $recensioni[] = $row;
 }
 
 ?>
@@ -151,7 +151,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     <h1>I nostri corsi</h1>
     <div class="space"></div> <!-- Spazio aggiunto -->
     <div class="courses">
-        <?php foreach ($corsi as $corso) : ?>
+        <?php foreach ($recensioni as $corso) : ?>
             <div class="course">
                 <div class="circular-square">
                     <img src="istruttore3.jpg" alt="Immagine">

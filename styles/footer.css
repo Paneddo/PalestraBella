@@ -6,7 +6,7 @@
     margin-bottom: 90px;
 }
 
-.fa {
+.icon {
     font-size: 30px;
     width: 30px;
     text-align: center;
@@ -17,7 +17,7 @@
     border-radius: 30%;
 }
 
-.fa:hover {
+.icon:hover {
     opacity: 0.7;
 }
 
