@@ -48,6 +48,7 @@ if ($_SESSION['tipo'] !== 'segretaria') {
 
         <button type="submit">Aggiungi Corso</button>
     </form>
+    <?php include "templates/footer.html" ?>
 </body>
 
 </html>

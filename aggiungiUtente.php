@@ -95,8 +95,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </select>
             <br><br>
 
-            <input id="img-upload" name="filename">
-            <br>
             <button type="submit">Aggiungi Utente</button>
         </form>
 
@@ -106,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ?>
         </div>
     </div>
-
+    <?php include "templates/footer.html" ?>
 </body>
 
 </html>

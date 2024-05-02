@@ -30,7 +30,11 @@ if (mysqli_num_rows($result) > 0) {
 
 <!DOCTYPE html>
 <html>
-
+<style>
+body {
+    background-color: white;
+}
+</style>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -74,6 +78,7 @@ if (mysqli_num_rows($result) > 0) {
     <?php if ($_SESSION['tipo'] !== 'segretaria') : ?>
         <a href="./corsi_personali.php">I miei Corsi</a>
     <?php endif; ?>
+    <?php include "templates/footer.html" ?>
 </body>
 
 </html>

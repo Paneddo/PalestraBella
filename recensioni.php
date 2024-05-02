@@ -25,36 +25,30 @@ while ($row = mysqli_fetch_assoc($result)) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Aggiunto FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
-        /* Stile per la card */
         .card {
             border-radius: 15px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
             margin: 0;
-            /* Rimuove lo spazio tra la card e il contorno giallo */
             width: 600px;
             height: 300px;
         }
 
-        /* Stile per il carousel */
         .carousel {
             margin-top: 35px;
             border-radius: 25px;
             border: 5px solid #FFBF00;
-            /* Contorni gialli */
             position: relative;
-            /* Per posizionare la striscia sotto il carousel */
             width: 600px;
             height: 300px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* Stile per l'immagine piccola */
         .small-img {
             width: 100px;
             height: 100px;
@@ -84,18 +78,12 @@ while ($row = mysqli_fetch_assoc($result)) {
             left: 50%;
             transform: translateX(-50%);
             bottom: -10px;
-            /* Più in basso */
             height: 5px;
-            /* Più spessa */
             width: calc(100% - 800px);
-            /* Estende la striscia fino al testo */
             background-color: #FFBF00;
-            /* Sottolineatura gialla */
             z-index: -1;
-            /* Sposta sotto il testo */
         }
 
-        /* Stile per lo sfondo nero */
         body {
             background-color: black;
         }
@@ -108,12 +96,10 @@ while ($row = mysqli_fetch_assoc($result)) {
             margin-right: auto;
         }
 
-        /* Stile per i bordi arrotondati dell'immagine nel secondo carousel */
         .carousel-item img {
             border-radius: 20px;
         }
 
-        /* Stile per i bordi arrotondati della card nel primo carousel */
         #cardCarousel .card {
             border-radius: 20px;
         }
@@ -133,9 +119,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <div class="carousel-inner">
                 <?php
 
-                // Output dei dati delle recensioni nel carousel
                 $active = true;
-                // Generazione della slide del carousel
                 echo '<div class="carousel-item ' . ($active ? 'active' : '') . '">';
                 echo '<div class="card">';
                 echo '<div class="card-header">' . "Andrea" . ' ' . "Crivella" . '</div>';
@@ -150,10 +134,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                 echo '</div>';
                 echo '</div>';
                 echo '</div>';
-                $active = false; // Imposta le prossime recensioni come non attive
+                $active = false;
                 ?>
             </div>
-            <!-- Pulsanti di navigazione -->
             <a class="carousel-control-prev" href="#cardCarousel" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Precedente</span>
