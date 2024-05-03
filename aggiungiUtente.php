@@ -5,7 +5,7 @@ if ($_SESSION['tipo'] !== 'segretaria') {
     exit();
 }
 
-include "conn.php";
+include "utils.php";
 
 function test_input($data)
 {
@@ -21,20 +21,20 @@ $email = '';
 $cellulare = '';
 $errore = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if ($_FILES['filename']['error'] === UPLOAD_ERR_OK) {
-        $tmp_name = $_FILES['filename']['tmp_name'];
-        $name = $_FILES['filename']['name'];
+    // if ($_FILES['filename']['error'] === UPLOAD_ERR_OK) {
+    //     $tmp_name = $_FILES['filename']['tmp_name'];
+    //     $name = $_FILES['filename']['name'];
 
-        $upload_dir = 'uploads/';
+    //     $upload_dir = 'uploads/';
 
-        if (move_uploaded_file($tmp_name, $upload_dir . $name)) {
-            echo "File uploaded successfully.";
-        } else {
-            echo "Failed to upload file.";
-        }
-    } else {
-        echo "Error uploading file. Error code: " . $_FILES['filename']['error'];
-    }
+    //     if (move_uploaded_file($tmp_name, $upload_dir . $name)) {
+    //         echo "File uploaded successfully.";
+    //     } else {
+    //         echo "Failed to upload file.";
+    //     }
+    // } else {
+    //     echo "Error uploading file. Error code: " . $_FILES['filename']['error'];
+    // }
 
     $nome = test_input($_POST['nome']);
     $cognome = test_input($_POST['cognome']);
@@ -42,17 +42,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cellulare = test_input($_POST['cellulare']);
     $tipo = test_input($_POST['tipo']);
 
+    $password = randomPassword(8);
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
-    $stmt = mysqli_prepare($conn, "INSERT INTO utente (nome, email, cellulare, tipo) VALUES (?, ?, ?, ?, ?)");
+    $conn = getConnection();
+    $stmt = mysqli_prepare($conn, "INSERT INTO utente (nome, cognome, password, email, cellulare, tipo) VALUES (?, ?, ?, ?, ?, ?)");
 
-    mysqli_stmt_bind_param($stmt, "sssss", $nome, $cognome, $password, $email, $cellulare, $tipo);
+    mysqli_stmt_bind_param($stmt, "ssssss", $nome, $cognome, $hash, $email, $cellulare, $tipo);
     mysqli_stmt_execute($stmt);
 
     mysqli_close($conn);
 
-    header("location: ./login.php");
-    exit();
+    $msg = 'Grazie per la registrazione ' . $nome . '. Usa questa password per accedere: ' . $password;
+    sendMail($email, 'Registrazione PalestraBella', $msg);
 }
 ?>
 
