@@ -43,24 +43,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="it">
 
 <head>
-    <link rel="stylesheet" href="stile.css">
+    <?php include "templates/head.html" ?>
+    <link rel="stylesheet" href="styles/login.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
 
 <body>
+    <?php include "templates/navbar.php" ?>
 
-    <h2>Login</h2>
+    <h1>LOGIN</h1>
 
     <form action="<?php echo ($_SERVER['PHP_SELF']); ?>" method="post">
         <div>
             <label for="email">Email:</label>
-            <input type="email" name="email" placeholder="Email..." id="email" value="<?php echo ($email); ?>">
+            <input type="email" name="email" placeholder="Email..." id="email" value="<?php echo ($email); ?>"><br><br>
         </div>
         <div>
             <label for="password">Password:</label>
-            <input type="password" name="password" placeholder="Password" id="password">
+            <input type="password" name="password" placeholder="Password" id="password"><br><br>
         </div>
         <div>
             <button type="submit">Accedi</button>
@@ -71,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         ?>
     </form>
-
+    <?php include "templates/footer.html" ?>
 </body>
 
 </html>

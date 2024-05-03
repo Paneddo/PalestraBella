@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    background-color: black;
+}
+
+input[type="email"],
+input[type="password"] {
+    border-radius: 15px;
+    border: 2px solid #636364;
+    color: #636364;
+    padding: 15px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    background-color: black;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #ffbf00;
+}
+
+form {
+    font-family: 'Poppins', sans-serif;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    color: #ffbf00;
+    text-align: center;
+}
+
+.error-message {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #ffcccc;
+    border: 1px solid #ff0000;
+    color: #ff0000;
+}
+
+button[type="submit"] {
+    text-align: center;
+    border-radius: 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    background-color: #ffbf00;
+    color: white;
+    border: 2px solid #ffbf00;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #ffcc66;
+}
+

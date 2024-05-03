@@ -28,6 +28,7 @@ session_start();
     <img src="./images/homepage.png" alt="Immagine" class="img-responsive">
     </div>
     <?php include "corsi.php" ?>
+    <?php include "aboutUs.html" ?>
     <?php include "templates/footer.html" ?>
 </body>
 
