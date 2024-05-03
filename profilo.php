@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "conn.php";
+include "utils.php";
 
 if (!isset($_SESSION["id"])) {
     header("location: ./index.php");
@@ -12,6 +12,7 @@ $nome = '';
 $cognome = '';
 $email = '';
 
+$conn = getConnection();
 $stmt = mysqli_prepare($conn, "SELECT nome, cognome, email FROM utente WHERE idUtente = ?");
 
 mysqli_stmt_bind_param($stmt, "s", $idUtente);
@@ -31,10 +32,11 @@ if (mysqli_num_rows($result) > 0) {
 <!DOCTYPE html>
 <html>
 <style>
-body {
-    background-color: white;
-}
+    body {
+        background-color: white;
+    }
 </style>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
