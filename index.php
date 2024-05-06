@@ -32,7 +32,7 @@ $conn = getConnection();
     <img src="./images/homepage.png" alt="Immagine" class="img-responsive">
   </div>
   <?php include "templates/corsi.php" ?>
-    <?php include "aboutUs.html" ?>
+  <?php include "aboutUs.html" ?>
   <?php include "templates/footer.html" ?>
 </body>
 

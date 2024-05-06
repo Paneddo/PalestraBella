@@ -26,11 +26,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
 
                 <h2><?= $corso['TitoloCorso'] ?></h2>
-                <p>Istruttore: </p>
-
-                <h2>Numero posti: <?= $corso['NumeroPosti'] ?></h2>
-                <h2><?= $corso['DescrizioneCorso'] ?></h2>
-                <p>Prezzo: </p>
+                <p>tipologia</p>
+                <p>numero posti</p>
+                <p>descrizione</p>
+                <p>lezione</p>
+                <p>prezzo</p>
                 <a href="#" class="btn">Prenota</a>
             </div>
         <?php endforeach; ?>

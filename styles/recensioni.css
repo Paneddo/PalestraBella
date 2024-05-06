@@ -1,0 +1,80 @@
+    .cardRecensioni {
+        background-color: #333; /* Grigio scuro */
+        border-radius: 15px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        margin: 0; /* Rimuove lo spazio tra la card e il contorno giallo */
+        max-width: 590px; /* Imposta una larghezza massima leggermente inferiore alla larghezza del carousel */
+        height: 290px;
+        color: white; /* Colore del testo bianco */
+    }
+ 
+    .carousel {
+        margin-top: 35px;
+        border-radius: 15px;
+        border: 5px solid #FFBF00; /* Aggiungi il bordo giallo */
+        position: relative; /* Per posizionare la striscia sotto il carousel */
+        width: 600px;
+        height: 300px; /* Altezza modificata */
+        margin-left: auto;
+        margin-right: auto;
+    }
+ 
+    .title {
+        color: gray;
+        text-align: center;
+        position: relative;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+ 
+    .title::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -10px; /* Più in basso */
+        height: 5px; /* Più spessa */
+        width: calc(100% - 800px); /* Estende la striscia fino al testo */
+        background-color: #FFBF00; /* Sottolineatura gialla */
+        z-index: -1; /* Sposta sotto il testo */
+    }
+
+ 
+    #imageCarousel {
+        border-radius: 15px;
+        width: 600px;
+        height: 290px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+ 
+    .carousel-item img {
+        max-width: 590px; /* Imposta una larghezza massima leggermente inferiore alla larghezza del carousel */
+        height: auto; /* Per mantenere l'aspetto proporzionato */
+        border-radius: 10px; /* Aggiunge bordi arrotondati */
+        max-height: 280px; /* Altezza massima dell'immagine */
+    }
+ 
+    #cardCarousel .cardRecensioni {
+        border-radius: 10px;
+    }
+ 
+    /* Stile per il testo del tipo di utente in giallo, maiuscolo e grassetto */
+    .user-type {
+        color: #FFBF00; /* Giallo */
+        text-transform: uppercase; /* Maiuscolo */
+        font-weight: bold; /* Grassetto */
+    }
+ 
+    /* Stile per il colore delle stelle in giallo */
+    .fas.fa-star {
+        color: #FFBF00; /* Giallo */
+    }
+    
+    /* Nascondi le frecce di navigazione solo su dispositivi di grandi dimensioni */
+    @media (min-width: 768px) {
+        .carousel-control-prev,
+        .carousel-control-next {
+            font-size: 10px; /* Riduci la dimensione dell'icona */
+        }
+    }
