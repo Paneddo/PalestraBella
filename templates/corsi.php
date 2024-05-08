@@ -1,5 +1,4 @@
 <?php
-include "conn.php";
 $corsi = array();
 $stmt = mysqli_prepare($conn, "SELECT * FROM corso");
 
@@ -13,24 +12,21 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 
 ?>
-<link rel="stylesheet" href="styles/corsi.css" />
-
 <div>
     <h1 style="text-align: center;">I nostri corsi</h1>
     <div class="space"></div>
     <div class="courses">
-        <?php foreach ($corsi as $corso) : ?>
+        <?php foreach ($corsi as $corso): ?>
             <div class="course">
                 <div class="circular-square">
-                    <img src="images/icon.png" alt="Immagine">
+                    <img src="../istruttore3.jpg" alt="Immagine">
                 </div>
 
-                <h2><?= $corso['TitoloCorso'] ?></h2>
-                <p>tipologia</p>
-                <p>numero posti</p>
-                <p>descrizione</p>
-                <p>lezione</p>
-                <p>prezzo</p>
+                <h2><?= $corso['nomeCorso'] ?></h2>
+
+                <p class="days">Lunedì 10.00-12.00</p>
+                <p class="days"> Mercoledì 10.00-12.00</p>
+                <p class="price">€<strong>10</strong>/ora</p>
                 <a href="#" class="btn">Prenota</a>
             </div>
         <?php endforeach; ?>
