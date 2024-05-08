@@ -31,19 +31,15 @@ if (mysqli_num_rows($result) > 0) {
 
 <!DOCTYPE html>
 <html>
-<style>
-    body {
-        background-color: white;
-    }
-</style>
+<?php include "templates/head.html" ?>
 
 <head>
-<link rel="stylesheet" href="styles/profilo.css">
+    <link rel="stylesheet" href="styles/profilo.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Form</title>
     <meta name="description" content="">
-    
+
 </head>
 
 <body>
@@ -64,12 +60,8 @@ if (mysqli_num_rows($result) > 0) {
             <input type="text" class="form-control" id="datadinascita" disabled>
         </div>
         <label for="sesso">Sesso</label>
-        <input type="radio" name="gender"
-        <?php if (isset($gender) && $gender=="female") echo "checked";?>
-        value="female"> <span style="color: orange;">Female</span>
-        <input type="radio" name="gender"
-        <?php if (isset($gender) && $gender=="male") echo "checked";?>
-        value="male"> <span style="color: orange;">Male</span>
+        <input type="radio" name="gender" <?php if (isset($gender) && $gender == "female") echo "checked"; ?> value="female"> <span style="color: orange;">Female</span>
+        <input type="radio" name="gender" <?php if (isset($gender) && $gender == "male") echo "checked"; ?> value="male"> <span style="color: orange;">Male</span>
 
         <div class="form-group">
             <label for="email">Email</label>
