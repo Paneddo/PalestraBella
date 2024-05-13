@@ -23,3 +23,6 @@ mysqli_stmt_bind_param($stmt, "ss", $idUtente, $idCorso);
 mysqli_stmt_execute($stmt);
 
 mysqli_close($conn);
+
+header("location: ./profilo.php");
+// exit();
