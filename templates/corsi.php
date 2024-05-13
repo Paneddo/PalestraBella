@@ -3,7 +3,7 @@ include_once "utils.php";
 
 $corsi = array();
 $conn = getConnection();
-$stmt = mysqli_prepare($conn, "SELECT foto, nomeCorso as nome, prezzoOrario as prezzo FROM corso INNER JOIN utente ON utente.idUtente = corso.idIstruttore INNER JOIN tipologia ON tipologia.idTipologia = corso.idTipologia");
+$stmt = mysqli_prepare($conn, "SELECT idCorso, foto, nomeCorso as nome, prezzoOrario as prezzo FROM corso INNER JOIN utente ON utente.idUtente = corso.idIstruttore INNER JOIN tipologia ON tipologia.idTipologia = corso.idTipologia");
 mysqli_stmt_execute($stmt);
 
 $result = mysqli_stmt_get_result($stmt);
@@ -24,8 +24,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 
             <p class="days">Lunedì 10.00-12.00</p>
             <p class="days"> Mercoledì 10.00-12.00</p>
-            <p class="price">€<strong><?= $corsi['prezzo'] ?></strong>/ora</p>
-            <a href="#" class="btn">Prenota</a>
+            <p class="price">€<strong><?= $corso['prezzo'] ?></strong>/ora</p>
+            <a href="./prenotaCorso.php?idCorso=<?= $corso['idCorso'] ?>" class="btn">Prenota</a>
         </div>
     <?php endforeach; ?>
 </div>

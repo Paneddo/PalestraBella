@@ -67,11 +67,4 @@ function sendMail($recipient, $subject, $message)
      $mail->AddAddress($recipient);
      $mail->Subject = $subject;
      $mail->Body = $message;
-
-
-     if (!$mail->Send()) {
-          echo "Mailer Error: " . $mail->ErrorInfo;
-     } else {
-          echo "Message has been sent";
-     }
 }

@@ -70,19 +70,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div>
         <form action="<?php echo $_SERVER["PHP_SELF"] ?>" method="post" enctype="multipart/form-data">
             <label for="nome">Nome:</label><br>
-            <input type="text" id="nome" value="<?php echo $nome ?>" name="nome" placeholder="Nome...">
+            <input type="text" id="nome" name="nome" placeholder="Nome...">
             <br><br>
 
             <label for="cognome">Cognome:</label><br>
-            <input type="text" id="cognome" value="<?php echo $cognome ?>" name="cognome" placeholder="Cognome...">
+            <input type="text" id="cognome" name="cognome" placeholder="Cognome...">
             <br><br>
 
             <label for="email">Email:</label><br>
-            <input type="email" id="email" value="<?php echo $email ?>" name="email" placeholder="Email...">
+            <input type="email" id="email" name="email" placeholder="Email...">
             <br><br>
 
             <label for="cellulare">Cellulare:</label><br>
-            <input type="text" id="cellulare" value="<?php echo $cellulare ?>" name="cellulare" placeholder="Cellulare...">
+            <input type="text" id="cellulare" name="cellulare" placeholder="Cellulare...">
             <br><br>
 
             <label for="tipo">Tipo:</label><br>
