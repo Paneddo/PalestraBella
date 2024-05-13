@@ -29,49 +29,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <?php include_once "templates/head.html" ?>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <link rel="stylesheet" href="styles/form.css">
+    <title>Recensione</title>
     <style>
-        .checked {
-            color: gold;
+        .rating {
+            text-align: center;
+            font-size: 2.5rem;
         }
 
         .ratings_stars {
             cursor: pointer;
+            color: white;
+        }
+
+        .checked {
+            color: gold;
         }
     </style>
     <script src="./js/recensioni.js" defer></script>
 </head>
 
 <body>
-    <h2>Crea Recensione</h2>
+    <h1>Lascia Una Recensione</h1>
 
     <form action="<?php echo ($_SERVER['PHP_SELF']); ?>" method="post">
         <div>
             <label for="titolo">Titolo:</label>
-            <input type="text" name="titolo" placeholder="Titolo..." id="titolo" value="<?php echo ($titolo); ?>">
-        </div>
+            <input type="text" name="titolo" placeholder="Titolo..." id="titolo">
+        </div><br>
         <div>
             <label for="testo">Testo:</label>
             <textarea name="testo" placeholder="Testo..." id="testo"></textarea>
-        </div>
+        </div><br>
         <div class="rating" id="r">
             <i class="ratings_stars fa fa-star" data-rating="1"></i>
             <i class="ratings_stars fa fa-star" data-rating="2"></i>
             <i class="ratings_stars fa fa-star" data-rating="3"></i>
             <i class="ratings_stars fa fa-star" data-rating="4"></i>
             <i class="ratings_stars fa fa-star" data-rating="5"></i>
-        </div>
+        </div><br>
         <input type="hidden" id="rating" name="rating" value="-1">
         <div>
-            <button type="submit">Crea Recensione</button>
+            <button type="submit">Invia</button>
         </div>
-        <?php
-        if (!empty($login_error)) {
-            echo '<div style="color: red;">' . $login_error . '</div>';
-        }
-        ?>
     </form>
 </body>
 

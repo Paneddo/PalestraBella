@@ -19,7 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     mysqli_stmt_bind_param($stmt, "sssss", $numeroPosti, $descrizione, $titolo, $idTipologia, $idIstruttore);
     mysqli_stmt_execute($stmt);
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-
     $istruttori = array();
     $query = "SELECT idUtente as id, nome, cognome FROM utente WHERE tipo = \"istruttore\"";
     $result = mysqli_query($conn, $query);
