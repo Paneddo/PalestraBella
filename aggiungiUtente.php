@@ -6,14 +6,7 @@ if ($_SESSION['tipo'] !== 'segretaria') {
 }
 
 include "utils.php";
-
-function test_input($data)
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
+$conn = getConnection();
 
 $nome = '';
 $cognome = '';
@@ -50,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
     $conn = getConnection();
-    $stmt = mysqli_prepare($conn, "INSERT INTO utente (nome, cognome, password, email, cellulare, tipo, fotoProfilo) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt = mysqli_prepare($conn, "INSERT INTO utente (nome, cognome, password, email, cellulare, tipo, foto) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
     mysqli_stmt_bind_param($stmt, "sssssss", $nome, $cognome, $hash, $email, $cellulare, $tipo, $filename);
     mysqli_stmt_execute($stmt);
@@ -89,8 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <br><br>
 
             <label for="cellulare">Cellulare:</label><br>
-            <input type="text" id="cellulare" value="<?php echo $cellulare ?>" name="cellulare"
-                placeholder="Cellulare...">
+            <input type="text" id="cellulare" value="<?php echo $cellulare ?>" name="cellulare" placeholder="Cellulare...">
             <br><br>
 
             <label for="tipo">Tipo:</label><br>

@@ -2,7 +2,7 @@
 include "conn.php";
 
 
-$recensioni = array();
+$corsi = array();
 
 include "conn.php";
 
@@ -14,7 +14,7 @@ $result = mysqli_stmt_get_result($stmt);
 mysqli_close($conn);
 
 while ($row = mysqli_fetch_assoc($result)) {
-    $recensioni[] = $row;
+    $corsi[] = $row;
 }
 
 ?>
@@ -29,11 +29,11 @@ while ($row = mysqli_fetch_assoc($result)) {
     <title>I NOSTRI SERVIZI</title>
 </head>
 
-<body>    
+<body>
     <h1 style="text-align: center;">I nostri corsi</h1>
-    <div class="space"></div> 
+    <div class="space"></div>
     <div class="courses">
-        <?php foreach ($recensioni as $corso) : ?>
+        <?php foreach ($corsi as $corso) : ?>
             <div class="course">
                 <div class="circular-square">
                     <img src="istruttore3.jpg" alt="Immagine">
@@ -41,12 +41,13 @@ while ($row = mysqli_fetch_assoc($result)) {
 
                 <h2><?= $corso['nomeCorso'] ?></h2>
 
-                <p class="days">Lunedì 10.00-12.00</p> 
-                <p class="days"> Mercoledì 10.00-12.00</p> 
+                <p class="days">Lunedì 10.00-12.00</p>
+                <p class="days"> Mercoledì 10.00-12.00</p>
                 <p class="price">€<strong>10</strong>/ora</p>
                 <a href="#" class="btn">Prenota</a>
             </div>
         <?php endforeach; ?>
-    </div></body>
+    </div>
+</body>
 
 </html>

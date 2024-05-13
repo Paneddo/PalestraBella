@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include "conn.php";
@@ -24,7 +23,6 @@ if (mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
     $nomeCorso = $row['nomeCorso'];
     $descrizioneCorso = $row['descrizioneCorso'];
-
 }
 ?>
 

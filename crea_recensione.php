@@ -1,21 +1,14 @@
 <?php
 session_start();
 
-function test_input($data)
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
-
 
 $titolo = '';
 $testo = '';
 $rating = 0;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    include "conn.php";
+    include "utils.php";
+    $conn = getConnection();
 
     $titolo = test_input($_POST['titolo']);
     $testo = test_input($_POST['testo']);

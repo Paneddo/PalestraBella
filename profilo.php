@@ -31,19 +31,14 @@ if (mysqli_num_rows($result) > 0) {
 
 <!DOCTYPE html>
 <html>
-<?php include "templates/head.html" ?>
 
 <head>
-    <link rel="stylesheet" href="styles/profilo.css">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Form</title>
-    <meta name="description" content="">
-
+    <?php include "templates/head.html" ?>
+    <title>Profilo</title>
+    <link rel="stylesheet" href="styles/form.css">
 </head>
 
 <body>
-
     <?php include 'templates/navbar.php'; ?>
 
     <form>
