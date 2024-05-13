@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "utils.php";
+include_once "utils.php";
 
 if (!isset($_SESSION["id"])) {
     header("location: ./index.php");
@@ -33,13 +33,13 @@ if (mysqli_num_rows($result) > 0) {
 <html>
 
 <head>
-    <?php include "templates/head.html" ?>
+    <?php include_once "templates/head.html" ?>
     <title>Profilo</title>
     <link rel="stylesheet" href="styles/form.css">
 </head>
 
 <body>
-    <?php include 'templates/navbar.php'; ?>
+    <?php include_once 'templates/navbar.php'; ?>
 
     <form>
         <div class="form-group">
@@ -66,7 +66,7 @@ if (mysqli_num_rows($result) > 0) {
     <?php if ($_SESSION['tipo'] !== 'segretaria') : ?>
         <a href="./corsi_personali.php">I miei Corsi</a>
     <?php endif; ?>
-    <?php include "templates/footer.html" ?>
+    <?php include_once "templates/footer.html" ?>
 </body>
 
 </html>

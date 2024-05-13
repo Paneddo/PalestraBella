@@ -7,7 +7,7 @@ $testo = '';
 $rating = 0;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    include "utils.php";
+    include_once "utils.php";
     $conn = getConnection();
 
     $titolo = test_input($_POST['titolo']);
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="it">
 
 <head>
-    <?php include "templates/head.html" ?>
+    <?php include_once "templates/head.html" ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>

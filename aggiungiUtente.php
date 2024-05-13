@@ -5,7 +5,7 @@ if ($_SESSION['tipo'] !== 'segretaria') {
     exit();
 }
 
-include "utils.php";
+include_once "utils.php";
 $conn = getConnection();
 
 $nome = '';
@@ -60,12 +60,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <title>Aggiungi un Utente</title>
-    <?php include "templates/head.html" ?>
+    <?php include_once "templates/head.html" ?>
     <link rel="stylesheet" href="styles/form.css">
 </head>
 
 <body>
-    <?php include "templates/navbar.php" ?>
+    <?php include_once "templates/navbar.php" ?>
     <h1>AGGIUNGI UN UTENTE</h1>
     <div>
         <form action="<?php echo $_SERVER["PHP_SELF"] ?>" method="post" enctype="multipart/form-data">
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ?>
         </div>
     </div>
-    <?php include "templates/footer.html" ?>
+    <?php include_once "templates/footer.html" ?>
     <script src="js/utente.js"></script>
 </body>
 

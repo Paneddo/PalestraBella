@@ -4,7 +4,7 @@ if ($_SESSION['tipo'] !== 'segretaria') {
     header("location: ./accessoNegato.php");
     exit();
 }
-include "utils.php";
+include_once "utils.php";
 $conn = getConnection();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -41,12 +41,12 @@ mysqli_close($conn);
 
 <head>
     <title>Aggiungi Corso</title>
-    <?php include "templates/head.html" ?>
+    <?php include_once "templates/head.html" ?>
     <link rel="stylesheet" href="styles/form.css">
 </head>
 
 <body>
-    <?php include "templates/navbar.php" ?>
+    <?php include_once "templates/navbar.php" ?>
     <h1>AGGIUNGI UN CORSO</h1>
     <?php if (!empty($message)) : ?>
         <p><?php echo $message; ?></p>
@@ -79,7 +79,7 @@ mysqli_close($conn);
 
         <button type="submit">Aggiungi Corso</button>
     </form>
-    <?php include "templates/footer.html" ?>
+    <?php include_once "templates/footer.html" ?>
 </body>
 
 </html>

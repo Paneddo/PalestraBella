@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accesso Negato</title>
-    <?php include "templates/head.html" ?>
+    <?php include_once "templates/head.html" ?>
 </head>
 
 <body>

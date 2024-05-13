@@ -6,7 +6,7 @@ $username = '';
 $email = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    include "utils.php";
+    include_once "utils.php";
     $username = test_input($_POST['email']);
     $password = test_input($_POST['password']);
 
@@ -36,13 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="it">
 
 <head>
-    <?php include "templates/head.html" ?>
+    <?php include_once "templates/head.html" ?>
     <link rel="stylesheet" href="styles/login.css">
     <title>Login</title>
 </head>
 
 <body>
-    <?php include "templates/navbar.php" ?>
+    <?php include_once "templates/navbar.php" ?>
 
     <h1>LOGIN</h1>
 
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         ?>
     </form>
-    <?php include "templates/footer.html" ?>
+    <?php include_once "templates/footer.html" ?>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "conn.php";
+include_once "conn.php";
 
 if (!isset($_SESSION["id"])) {
     header("location: ./index.php");
@@ -34,12 +34,12 @@ if (mysqli_num_rows($result) > 0) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Form</title>
     <meta name="description" content="">
-    <?php include "templates/head.html" ?>
+    <?php include_once "templates/head.html" ?>
 </head>
 
 <body>
 
-    <?php include 'templates/navbar.php'; ?>
+    <?php include_once 'templates/navbar.php'; ?>
     <form>
         <div class="form-group">
             <label for="corso">nomeCorso</label>

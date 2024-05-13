@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php include "templates/head.html" ?>
+    <?php include_once "templates/head.html" ?>
     <link rel="stylesheet" href="styles/form.css">
 </head>
 

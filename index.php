@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "utils.php";
+include_once "utils.php";
 $conn = getConnection();
 ?>
 
@@ -8,7 +8,7 @@ $conn = getConnection();
 <html lang="en">
 
 <head>
-  <?php include "templates/head.html" ?>
+  <?php include_once "templates/head.html" ?>
   <link rel="stylesheet" href="styles/corsi.css">
   <title>PeppeGym</title>
 </head>
@@ -28,13 +28,13 @@ $conn = getConnection();
 </style>
 
 <body>
-  <?php include "templates/navbar.php" ?>
+  <?php include_once "templates/navbar.php" ?>
   <div class="container" style="padding-left: 0px; padding-right: 0px;">
     <img src="./images/homepage.png" alt="Immagine" class="img-responsive">
   </div>
-  <?php include "templates/corsi.php" ?>
-  <?php include "templates/aboutUs.html" ?>
-  <?php include "templates/footer.html" ?>
+  <?php include_once "templates/corsi.php" ?>
+  <?php include_once "templates/aboutUs.html" ?>
+  <?php include_once "templates/footer.html" ?>
 </body>
 
 </html>
