@@ -32,6 +32,8 @@ $conn = getConnection();
     <img src="./images/homepage.png" alt="Immagine" class="img-responsive">
   </div>
   <?php include "templates/corsi.php" ?>
-  <<<<<<<<< Temporary merge branch 1 <?php include "templates/aboutUs.html" ?> <?php include "templates/footer.html" ?> </body>
+  <?php include "templates/aboutUs.html" ?>
+  <?php include "templates/footer.html" ?>
+</body>
 
 </html>
