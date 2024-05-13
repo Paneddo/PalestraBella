@@ -9,6 +9,7 @@ $conn = getConnection();
 
 <head>
   <?php include "templates/head.html" ?>
+  <link rel="stylesheet" href="styles/corsi.css">
   <title>PeppeGym</title>
 </head>
 <style>
