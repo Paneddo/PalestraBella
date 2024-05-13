@@ -16,7 +16,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     <h1 style="text-align: center;">I nostri corsi</h1>
     <div class="space"></div>
     <div class="courses">
-        <?php foreach ($corsi as $corso) : ?>
+        <?php foreach ($corsi as $corso): ?>
             <div class="course">
                 <div class="circular-square">
                     <img src="../istruttore3.jpg" alt="Immagine">
