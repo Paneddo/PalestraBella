@@ -15,10 +15,8 @@ function getConnection()
      $password_db = "";
      $db = "palestra";
 
-     // Creazione della connessione 
      $conn = mysqli_connect($servername, $username_db, $password_db, $db);
 
-     // Test della connessione 
      if (!$conn) {
           die("Connection failed: " . mysqli_connect_error());
      }
@@ -35,7 +33,7 @@ function randomPassword($length)
           $n = rand(0, $alphaLength);
           $pass[] = $alphabet[$n];
      }
-     return implode($pass); //turn the array into a string
+     return implode($pass);
 }
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -50,7 +48,7 @@ function sendMail($recipient, $subject, $message)
      $mail = new PHPMailer();
      $mail->IsSMTP();
 
-     $mail->SMTPDebug = 0;
+     $mail->SMTPDebug = 1;
      $mail->CharSet = "UTF-8";
      $mail->Host = "smtp.gmail.com";
      $mail->Port = 465;
