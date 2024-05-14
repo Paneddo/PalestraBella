@@ -13,6 +13,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $corsi[] = $row;
 }
 ?>
+<h1>I Nostri Corsi</h1>
 <div class="courses">
     <?php foreach ($corsi as $corso) : ?>
         <div class="course">

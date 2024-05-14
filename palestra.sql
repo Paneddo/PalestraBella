@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Creato il: Mag 06, 2024 alle 09:08
--- Versione del server: 10.4.27-MariaDB
--- Versione PHP: 8.2.0
+-- Host: 127.0.0.1
+-- Generation Time: May 14, 2024 at 01:06 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,187 +24,222 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `corso`
+-- Table structure for table `corso`
 --
 
 CREATE TABLE `corso` (
   `idCorso` int(11) NOT NULL,
-  `NumeroPosti` int(11) DEFAULT NULL,
-  `DescrizioneCorso` varchar(45) DEFAULT NULL,
-  `TitoloCorso` varchar(45) DEFAULT NULL,
-  `Tipologia_idTipologia` int(11) NOT NULL,
+  `numeroPosti` int(11) NOT NULL,
+  `descrizioneCorso` varchar(255) NOT NULL,
+  `nomeCorso` varchar(45) NOT NULL,
+  `idTipologia` int(11) NOT NULL,
   `idIstruttore` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `corso`
+--
+
+INSERT INTO `corso` (`idCorso`, `numeroPosti`, `descrizioneCorso`, `nomeCorso`, `idTipologia`, `idIstruttore`) VALUES
+(7, 10, 'aa', 'aaa', 1, 8);
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `lezione`
+-- Table structure for table `lezione`
 --
 
 CREATE TABLE `lezione` (
   `idLezione` int(11) NOT NULL,
-  `Giorno` date DEFAULT NULL,
-  `OraInizio` varchar(45) DEFAULT NULL,
-  `OraFine` varchar(45) DEFAULT NULL,
+  `giorno` date NOT NULL,
+  `oraInizio` time NOT NULL,
+  `oraFine` time NOT NULL,
   `Corso_idCorso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `prenotazione`
+-- Table structure for table `prenotazione`
 --
 
 CREATE TABLE `prenotazione` (
-  `Corso_idCorso` int(11) NOT NULL,
-  `Utente Registrato_idUtenteRegistrato` int(11) NOT NULL
+  `idUtente` int(11) NOT NULL,
+  `idCorso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `recensione`
+-- Table structure for table `recensione`
 --
 
 CREATE TABLE `recensione` (
   `idRecensione` int(11) NOT NULL,
-  `dataRecensione` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `titolo` varchar(45) NOT NULL,
-  `testo` varchar(500) NOT NULL,
-  `stelle` int(11) NOT NULL,
-  `Utente_idUtente` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `idUtente` int(11) NOT NULL,
+  `titolo` varchar(50) NOT NULL,
+  `numeroStelle` int(11) NOT NULL,
+  `testo` varchar(255) NOT NULL,
+  `dataRecensione` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `recensione`
+--
+
+INSERT INTO `recensione` (`idRecensione`, `idUtente`, `titolo`, `numeroStelle`, `testo`, `dataRecensione`) VALUES
+(25, 1, 'sdsad', 4, 'gd', '2024-04-30 13:33:58');
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `tipologia`
+-- Table structure for table `tipologia`
 --
 
 CREATE TABLE `tipologia` (
   `idTipologia` int(11) NOT NULL,
-  `PrezzoOrario` int(11) DEFAULT NULL,
-  `NomeTipologia` varchar(45) DEFAULT NULL
+  `prezzoOrario` float(4,2) NOT NULL,
+  `nomeTipologia` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `tipologia`
+--
+
+INSERT INTO `tipologia` (`idTipologia`, `prezzoOrario`, `nomeTipologia`) VALUES
+(1, 10.00, 'Yoga');
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `utente`
+-- Table structure for table `utente`
 --
 
 CREATE TABLE `utente` (
   `idUtente` int(11) NOT NULL,
-  `nome` varchar(45) DEFAULT NULL,
-  `cognome` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
+  `nome` varchar(45) NOT NULL,
+  `cognome` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `cellulare` varchar(45) DEFAULT NULL,
-  `tipo` varchar(50) NOT NULL,
-  `scadenzaCertificatoMedico` varchar(45) DEFAULT NULL,
-  `fotoProfilo` varchar(255) DEFAULT NULL
+  `cellulare` varchar(45) NOT NULL,
+  `tipo` varchar(45) NOT NULL,
+  `foto` varchar(45) DEFAULT NULL,
+  `scadenzaCertificatoMedico` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dump dei dati per la tabella `utente`
+-- Dumping data for table `utente`
 --
 
-INSERT INTO `utente` (`idUtente`, `nome`, `cognome`, `email`, `password`, `cellulare`, `tipo`, `scadenzaCertificatoMedico`, `fotoProfilo`) VALUES
-(1, 'Angela', 'Rossi', 'angela@gmail.com', '$2y$10$RrDIwQWF98ANYcYnoJF7iu.r0004F4H7oN6xwKvsthRY7rY.tF/9i', '000 4500 999', 'segretaria', NULL, NULL),
-(2, 'dfsa', 'sdfds', 'lab@gmail.com', '$2y$10$Ix/7.bggEl/9ld/YEmQUXOKIRegZnnH7Rtn.NMKTpZD0SdUnR6/Fq', '2312', 'cliente', NULL, NULL),
-(3, 'Giancarlo', 'Zita', 'lesgo@gmail.com', '$2y$10$zC78gYWnSjFfKzaZbrS6Teil0YTbVM458DGVPBqijaM0W8GcFl0Ci', '333', 'istruttore', NULL, '66387eeae6bc5.jpeg');
+INSERT INTO `utente` (`idUtente`, `nome`, `cognome`, `email`, `password`, `cellulare`, `tipo`, `foto`, `scadenzaCertificatoMedico`) VALUES
+(1, 'Angela', 'Rossi', 'angela@gmail.com', '$2y$10$RrDIwQWF98ANYcYnoJF7iu.r0004F4H7oN6xwKvsthRY7rY.tF/9i', '333 000 9999', 'segretaria', NULL, NULL),
+(5, 'Lorenzo', 'Pani', 'lorenzopanilorenzo@gmail.com', '$2y$10$ceSYrqGnB6YkUsgKFlA9Y.TXMzK3BYo1limc4kG70zhWzAUAtBKhy', '333 3333', 'cliente', NULL, NULL),
+(7, 'Christian', 'Quartucci', 'chris.quartucci05@gmail.com', '$2y$10$cJLx8qoXMYhHmyeIIxYGn.uJswQrrqMSBwECCtEKJkHwol9U4sLn6', '234324', 'cliente', NULL, NULL),
+(8, 'Chris', 'Ninja', 'fifamobile19112005@gmail.com', '$2y$10$7oV3.3cGKyhIf7tjSU6MtuqwuH7BXk1iqLBu/D8eFKz31VUkihAuW', '333 3333', 'istruttore', '66387eabbbbed.jpeg', NULL);
 
 --
--- Indici per le tabelle scaricate
+-- Indexes for dumped tables
 --
 
 --
--- Indici per le tabelle `corso`
+-- Indexes for table `corso`
 --
 ALTER TABLE `corso`
   ADD PRIMARY KEY (`idCorso`),
-  ADD KEY `fk_Corso_Tipologia1` (`Tipologia_idTipologia`),
-  ADD KEY `fk_Corso_Istruttore1` (`idIstruttore`);
+  ADD KEY `fk_Corso_Tipologia` (`idTipologia`),
+  ADD KEY `fk_Corso_Utente1` (`idIstruttore`);
 
 --
--- Indici per le tabelle `lezione`
+-- Indexes for table `lezione`
 --
 ALTER TABLE `lezione`
-  ADD PRIMARY KEY (`idLezione`),
+  ADD PRIMARY KEY (`idLezione`,`Corso_idCorso`),
   ADD KEY `fk_Lezione_Corso1` (`Corso_idCorso`);
 
 --
--- Indici per le tabelle `prenotazione`
+-- Indexes for table `prenotazione`
 --
 ALTER TABLE `prenotazione`
-  ADD PRIMARY KEY (`Corso_idCorso`,`Utente Registrato_idUtenteRegistrato`),
-  ADD KEY `fk_Corso_has_Utente Registrato_Utente Registrato1` (`Utente Registrato_idUtenteRegistrato`);
+  ADD PRIMARY KEY (`idUtente`,`idCorso`),
+  ADD KEY `fk_Utente_has_Corso_Corso1` (`idCorso`);
 
 --
--- Indici per le tabelle `recensione`
+-- Indexes for table `recensione`
 --
 ALTER TABLE `recensione`
   ADD PRIMARY KEY (`idRecensione`),
-  ADD KEY `fk_Recensione_Utente2` (`Utente_idUtente`);
+  ADD KEY `fk_Recensione_Utente1` (`idUtente`);
 
 --
--- Indici per le tabelle `tipologia`
+-- Indexes for table `tipologia`
 --
 ALTER TABLE `tipologia`
   ADD PRIMARY KEY (`idTipologia`);
 
 --
--- Indici per le tabelle `utente`
+-- Indexes for table `utente`
 --
 ALTER TABLE `utente`
-  ADD PRIMARY KEY (`idUtente`);
+  ADD PRIMARY KEY (`idUtente`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT per le tabelle scaricate
---
-
---
--- AUTO_INCREMENT per la tabella `recensione`
---
-ALTER TABLE `recensione`
-  MODIFY `idRecensione` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT per la tabella `utente`
---
-ALTER TABLE `utente`
-  MODIFY `idUtente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- Limiti per le tabelle scaricate
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- Limiti per la tabella `corso`
+-- AUTO_INCREMENT for table `corso`
 --
 ALTER TABLE `corso`
-  ADD CONSTRAINT `fk_Corso_Istruttore1` FOREIGN KEY (`idIstruttore`) REFERENCES `istruttore` (`Utente Registrato_idUtenteRegistrato`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Corso_Tipologia1` FOREIGN KEY (`Tipologia_idTipologia`) REFERENCES `tipologia` (`idTipologia`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  MODIFY `idCorso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- Limiti per la tabella `lezione`
+-- AUTO_INCREMENT for table `recensione`
+--
+ALTER TABLE `recensione`
+  MODIFY `idRecensione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `tipologia`
+--
+ALTER TABLE `tipologia`
+  MODIFY `idTipologia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `utente`
+--
+ALTER TABLE `utente`
+  MODIFY `idUtente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `corso`
+--
+ALTER TABLE `corso`
+  ADD CONSTRAINT `fk_Corso_Tipologia` FOREIGN KEY (`idTipologia`) REFERENCES `tipologia` (`idTipologia`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Corso_Utente1` FOREIGN KEY (`idIstruttore`) REFERENCES `utente` (`idUtente`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `lezione`
 --
 ALTER TABLE `lezione`
   ADD CONSTRAINT `fk_Lezione_Corso1` FOREIGN KEY (`Corso_idCorso`) REFERENCES `corso` (`idCorso`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limiti per la tabella `prenotazione`
+-- Constraints for table `prenotazione`
 --
 ALTER TABLE `prenotazione`
-  ADD CONSTRAINT `fk_Corso_has_Utente Registrato_Corso1` FOREIGN KEY (`Corso_idCorso`) REFERENCES `corso` (`idCorso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Corso_has_Utente Registrato_Utente Registrato1` FOREIGN KEY (`Utente Registrato_idUtenteRegistrato`) REFERENCES `utente` (`idUtente`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Utente_has_Corso_Corso1` FOREIGN KEY (`idCorso`) REFERENCES `corso` (`idCorso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Utente_has_Corso_Utente1` FOREIGN KEY (`idUtente`) REFERENCES `utente` (`idUtente`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limiti per la tabella `recensione`
+-- Constraints for table `recensione`
 --
 ALTER TABLE `recensione`
-  ADD CONSTRAINT `fk_Recensione_Utente2` FOREIGN KEY (`Utente_idUtente`) REFERENCES `utente` (`idUtente`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Recensione_Utente1` FOREIGN KEY (`idUtente`) REFERENCES `utente` (`idUtente`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

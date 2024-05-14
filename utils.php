@@ -57,12 +57,10 @@ function sendMail($recipient, $subject, $message)
 
      $mail->SMTPSecure = 'ssl';
      $mail->SMTPAuth = true;
-     // $mail->IsHTML(true);
 
      $mail->Username = "wetsos.5b@gmail.com";
      $mail->Password = "vcap gnbe ioyu doxa";
 
-     //Set Params
      $mail->SetFrom("wetsos.5b@gmail.com");
      $mail->AddAddress($recipient);
      $mail->Subject = $subject;
