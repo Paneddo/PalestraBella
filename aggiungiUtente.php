@@ -6,7 +6,6 @@ if ($_SESSION['tipo'] !== 'segretaria') {
 }
 
 include_once "utils.php";
-$conn = getConnection();
 
 $nome = '';
 $cognome = '';

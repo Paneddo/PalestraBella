@@ -1,10 +1,9 @@
 <?php
-include_once "conn.php";
+include_once "utils.php";
 
+$conn = getConnection();
 
 $recensioni = array();
-
-include_once "conn.php";
 
 $query = "SELECT nome, cognome, dataRecensione, titolo, testo, numeroStelle FROM recensione INNER JOIN utente ON utente.idUtente = recensione.idUtente";
 
