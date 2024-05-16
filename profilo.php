@@ -3,7 +3,7 @@ session_start();
 include_once "utils.php";
 
 if (!isset($_SESSION["id"])) {
-    header("location: ./index.php");
+    header("Location: ./index.php");
     exit();
 }
 
@@ -63,6 +63,9 @@ while ($row = mysqli_fetch_assoc($result)) {
             <label for="email">Email</label>
             <input type="email" value="<?php echo $utente['email'] ?>" class="form-control" id="email" disabled>
         </div>
+        <button type="button" id="editButton">Edit</button>
+        <button type="button" id="saveButton" style="display: none;">Save</button>
+        <button type="button" id="cancelButton" style="display: none;">Cancel</button>
     </form>
     <?php if ($_SESSION['tipo'] !== 'segretaria' && count($corsi) > 0) : ?>
         <h1>I tuoi Corsi</h1>
@@ -84,6 +87,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     <?php endif; ?>
     <?php include_once "templates/footer.html" ?>
+    <script src="./js/modificaProfilo.js"></script>
 </body>
 
 </html>
