@@ -1,5 +1,7 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+
 function test_input($data)
 {
      $data = trim($data);
@@ -36,7 +38,6 @@ function randomPassword($length)
      return implode($pass);
 }
 
-use PHPMailer\PHPMailer\PHPMailer;
 
 function sendMail($recipient, $subject, $message)
 {
@@ -48,7 +49,7 @@ function sendMail($recipient, $subject, $message)
      $mail = new PHPMailer();
      $mail->IsSMTP();
 
-     $mail->SMTPDebug = 1;
+     $mail->SMTPDebug = 0;
      $mail->CharSet = "UTF-8";
      $mail->Host = "smtp.gmail.com";
      $mail->Port = 465;

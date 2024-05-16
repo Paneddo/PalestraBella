@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 14, 2024 at 01:06 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost
+-- Creato il: Mag 15, 2024 alle 10:38
+-- Versione del server: 10.4.27-MariaDB
+-- Versione PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `corso`
+-- Struttura della tabella `corso`
 --
 
 CREATE TABLE `corso` (
@@ -37,16 +37,17 @@ CREATE TABLE `corso` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `corso`
+-- Dump dei dati per la tabella `corso`
 --
 
 INSERT INTO `corso` (`idCorso`, `numeroPosti`, `descrizioneCorso`, `nomeCorso`, `idTipologia`, `idIstruttore`) VALUES
-(7, 10, 'aa', 'aaa', 1, 8);
+(7, 10, 'aa', 'aaa', 1, 8),
+(10, 10, 'ss', 's', 1, 7);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lezione`
+-- Struttura della tabella `lezione`
 --
 
 CREATE TABLE `lezione` (
@@ -60,7 +61,18 @@ CREATE TABLE `lezione` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `prenotazione`
+-- Struttura stand-in per le viste `postiLiberiPerCorso`
+-- (Vedi sotto per la vista effettiva)
+--
+CREATE TABLE `postiLiberiPerCorso` (
+`idCorso` int(11)
+,`postiliberi` bigint(22)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `prenotazione`
 --
 
 CREATE TABLE `prenotazione` (
@@ -68,10 +80,19 @@ CREATE TABLE `prenotazione` (
   `idCorso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Dump dei dati per la tabella `prenotazione`
+--
+
+INSERT INTO `prenotazione` (`idUtente`, `idCorso`) VALUES
+(1, 7),
+(5, 10),
+(8, 7);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `recensione`
+-- Struttura della tabella `recensione`
 --
 
 CREATE TABLE `recensione` (
@@ -84,7 +105,7 @@ CREATE TABLE `recensione` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `recensione`
+-- Dump dei dati per la tabella `recensione`
 --
 
 INSERT INTO `recensione` (`idRecensione`, `idUtente`, `titolo`, `numeroStelle`, `testo`, `dataRecensione`) VALUES
@@ -93,7 +114,7 @@ INSERT INTO `recensione` (`idRecensione`, `idUtente`, `titolo`, `numeroStelle`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipologia`
+-- Struttura della tabella `tipologia`
 --
 
 CREATE TABLE `tipologia` (
@@ -103,7 +124,7 @@ CREATE TABLE `tipologia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `tipologia`
+-- Dump dei dati per la tabella `tipologia`
 --
 
 INSERT INTO `tipologia` (`idTipologia`, `prezzoOrario`, `nomeTipologia`) VALUES
@@ -112,7 +133,7 @@ INSERT INTO `tipologia` (`idTipologia`, `prezzoOrario`, `nomeTipologia`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `utente`
+-- Struttura della tabella `utente`
 --
 
 CREATE TABLE `utente` (
@@ -128,7 +149,7 @@ CREATE TABLE `utente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `utente`
+-- Dump dei dati per la tabella `utente`
 --
 
 INSERT INTO `utente` (`idUtente`, `nome`, `cognome`, `email`, `password`, `cellulare`, `tipo`, `foto`, `scadenzaCertificatoMedico`) VALUES
@@ -137,12 +158,21 @@ INSERT INTO `utente` (`idUtente`, `nome`, `cognome`, `email`, `password`, `cellu
 (7, 'Christian', 'Quartucci', 'chris.quartucci05@gmail.com', '$2y$10$cJLx8qoXMYhHmyeIIxYGn.uJswQrrqMSBwECCtEKJkHwol9U4sLn6', '234324', 'cliente', NULL, NULL),
 (8, 'Chris', 'Ninja', 'fifamobile19112005@gmail.com', '$2y$10$7oV3.3cGKyhIf7tjSU6MtuqwuH7BXk1iqLBu/D8eFKz31VUkihAuW', '333 3333', 'istruttore', '66387eabbbbed.jpeg', NULL);
 
+-- --------------------------------------------------------
+
 --
--- Indexes for dumped tables
+-- Struttura per vista `postiLiberiPerCorso`
+--
+DROP TABLE IF EXISTS `postiLiberiPerCorso`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `postiLiberiPerCorso`  AS SELECT `prenotazione`.`idCorso` AS `idCorso`, `corso`.`numeroPosti`- count(`prenotazione`.`idUtente`) AS `postiliberi` FROM (`prenotazione` join `corso` on(`prenotazione`.`idCorso` = `corso`.`idCorso`)) GROUP BY `prenotazione`.`idCorso`;
+
+--
+-- Indici per le tabelle scaricate
 --
 
 --
--- Indexes for table `corso`
+-- Indici per le tabelle `corso`
 --
 ALTER TABLE `corso`
   ADD PRIMARY KEY (`idCorso`),
@@ -150,93 +180,93 @@ ALTER TABLE `corso`
   ADD KEY `fk_Corso_Utente1` (`idIstruttore`);
 
 --
--- Indexes for table `lezione`
+-- Indici per le tabelle `lezione`
 --
 ALTER TABLE `lezione`
   ADD PRIMARY KEY (`idLezione`,`Corso_idCorso`),
   ADD KEY `fk_Lezione_Corso1` (`Corso_idCorso`);
 
 --
--- Indexes for table `prenotazione`
+-- Indici per le tabelle `prenotazione`
 --
 ALTER TABLE `prenotazione`
   ADD PRIMARY KEY (`idUtente`,`idCorso`),
   ADD KEY `fk_Utente_has_Corso_Corso1` (`idCorso`);
 
 --
--- Indexes for table `recensione`
+-- Indici per le tabelle `recensione`
 --
 ALTER TABLE `recensione`
   ADD PRIMARY KEY (`idRecensione`),
   ADD KEY `fk_Recensione_Utente1` (`idUtente`);
 
 --
--- Indexes for table `tipologia`
+-- Indici per le tabelle `tipologia`
 --
 ALTER TABLE `tipologia`
   ADD PRIMARY KEY (`idTipologia`);
 
 --
--- Indexes for table `utente`
+-- Indici per le tabelle `utente`
 --
 ALTER TABLE `utente`
   ADD PRIMARY KEY (`idUtente`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT per le tabelle scaricate
 --
 
 --
--- AUTO_INCREMENT for table `corso`
+-- AUTO_INCREMENT per la tabella `corso`
 --
 ALTER TABLE `corso`
-  MODIFY `idCorso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idCorso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `recensione`
+-- AUTO_INCREMENT per la tabella `recensione`
 --
 ALTER TABLE `recensione`
   MODIFY `idRecensione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT for table `tipologia`
+-- AUTO_INCREMENT per la tabella `tipologia`
 --
 ALTER TABLE `tipologia`
   MODIFY `idTipologia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `utente`
+-- AUTO_INCREMENT per la tabella `utente`
 --
 ALTER TABLE `utente`
   MODIFY `idUtente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- Constraints for dumped tables
+-- Limiti per le tabelle scaricate
 --
 
 --
--- Constraints for table `corso`
+-- Limiti per la tabella `corso`
 --
 ALTER TABLE `corso`
   ADD CONSTRAINT `fk_Corso_Tipologia` FOREIGN KEY (`idTipologia`) REFERENCES `tipologia` (`idTipologia`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Corso_Utente1` FOREIGN KEY (`idIstruttore`) REFERENCES `utente` (`idUtente`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `lezione`
+-- Limiti per la tabella `lezione`
 --
 ALTER TABLE `lezione`
   ADD CONSTRAINT `fk_Lezione_Corso1` FOREIGN KEY (`Corso_idCorso`) REFERENCES `corso` (`idCorso`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `prenotazione`
+-- Limiti per la tabella `prenotazione`
 --
 ALTER TABLE `prenotazione`
   ADD CONSTRAINT `fk_Utente_has_Corso_Corso1` FOREIGN KEY (`idCorso`) REFERENCES `corso` (`idCorso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Utente_has_Corso_Utente1` FOREIGN KEY (`idUtente`) REFERENCES `utente` (`idUtente`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `recensione`
+-- Limiti per la tabella `recensione`
 --
 ALTER TABLE `recensione`
   ADD CONSTRAINT `fk_Recensione_Utente1` FOREIGN KEY (`idUtente`) REFERENCES `utente` (`idUtente`) ON DELETE NO ACTION ON UPDATE NO ACTION;
