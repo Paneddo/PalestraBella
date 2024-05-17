@@ -48,7 +48,7 @@ function sendMail($recipient, $subject, $message)
      $mail = new PHPMailer();
      $mail->IsSMTP();
 
-     $mail->SMTPDebug = 3;
+     $mail->SMTPDebug = 0;
      $mail->CharSet = "UTF-8";
      $mail->Host = "smtp.gmail.com";
      $mail->Port = 465;

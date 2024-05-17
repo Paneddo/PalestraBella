@@ -24,7 +24,10 @@ while ($row = mysqli_fetch_assoc($result)) {
             <p class="days"> Mercoledì 10.00-12.00</p>
             <p class="price">€<strong><?= $corso['prezzo'] ?></strong>/ora</p>
             <p class="price">Posti Liberi: <strong><?= $corso['postiliberi'] ?></strong></p>
-            <a href="./prenotaCorso.php?idCorso=<?= $corso['idCorso'] ?>" class="btn">Prenota</a>
+            <a href="./.php?idCorso=<?= $corso['idCorso'] ?>" class="btn">Prenota</a>
+            <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'segretaria') : ?>
+                <a href="./modificaCorso.php?idcorso=<?= $corso['idCorso'] ?>">Modifica</a>
+            <?php endif ?>
         </div>
     <?php endforeach; ?>
 </div>
