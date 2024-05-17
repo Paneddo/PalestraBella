@@ -41,6 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = randomPassword(8);
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
+    $msg = 'Grazie per la registrazione ' . $nome . '. Usa questa password per accedere: ' . $password;
+    if (!sendMail($email, 'Registrazione PalestraBella', $msg))
+        return;
+
     $conn = getConnection();
     $stmt = mysqli_prepare($conn, "INSERT INTO utente (nome, cognome, password, email, cellulare, tipo, foto) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
@@ -48,9 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     mysqli_stmt_execute($stmt);
 
     mysqli_close($conn);
-
-    $msg = 'Grazie per la registrazione ' . $nome . '. Usa questa password per accedere: ' . $password;
-    sendMail($email, 'Registrazione PalestraBella', $msg);
 }
 ?>
 

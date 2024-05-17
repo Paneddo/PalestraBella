@@ -45,7 +45,6 @@ function sendMail($recipient, $subject, $message)
      require './vendor/phpmailer/phpmailer/src/SMTP.php';
      require './vendor/phpmailer/phpmailer/src/Exception.php';
 
-
      $mail = new PHPMailer();
      $mail->IsSMTP();
 
@@ -57,11 +56,13 @@ function sendMail($recipient, $subject, $message)
      $mail->SMTPSecure = 'ssl';
      $mail->SMTPAuth = true;
 
-     $mail->Username = "wetsos.5b@gmail.com";
-     $mail->Password = "vcap gnbe ioyu doxa";
+     $mail->Username = "peppegym5b@gmail.com";
+     $mail->Password = "jvyz tqgr dmmk ujph";
 
-     $mail->SetFrom("wetsos.5b@gmail.com");
+     $mail->SetFrom("peppegym5b@gmail.com");
      $mail->AddAddress($recipient);
      $mail->Subject = $subject;
      $mail->Body = $message;
+
+     return $mail->send();
 }
