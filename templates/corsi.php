@@ -42,30 +42,4 @@ while ($row = mysqli_fetch_assoc($result)) {
         <p id="istruttoreCellulare" style="color: black">.</p>
     </div>
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const popup = document.getElementById('popup');
-        const closeBtn = document.querySelector('.close');
-
-        document.querySelectorAll('.clickable').forEach(img => {
-            img.addEventListener('click', () => {
-                const data = JSON.parse(img.getAttribute('data-istruttore'));
-                document.getElementById('istruttoreNome').innerText = `${data.nome} ${data.cognome}`;
-                document.getElementById('istruttoreFoto').src = img.src;
-                document.getElementById('istruttoreEmail').innerText = `Email: ${data.email}`;
-                document.getElementById('istruttoreCellulare').innerText = `Cellulare: ${data.cellulare}`;
-                popup.style.display = 'block';
-            });
-        });
-
-        closeBtn.onclick = function() {
-            popup.style.display = 'none';
-        };
-
-        window.onclick = function(event) {
-            if (event.target == popup) {
-                popup.style.display = 'none';
-            }
-        };
-    });
-</script>
+<script src="./js/corsi.js"></script>
