@@ -1,47 +1,31 @@
-var editButton = document.getElementById('editButton');
-var saveButton = document.getElementById('saveButton');
-var cancelButton = document.getElementById('cancelButton');
+const editButton = $('#editButton');
+const saveButton = $('#saveButton');
+const cancelButton = $('#cancelButton');
 
-var inputs = document.querySelectorAll(
-    'input[type=text], input[type=email], input[type=checkbox]'
-);
+var nome;
+var cognome;
+var email;
 
-editButton.addEventListener('click', function () {
-    for (var i = 0; i < inputs.length; i++) {
-        inputs[i].removeAttribute('disabled');
-    }
-    saveButton.style.display = 'inline';
-    cancelButton.style.display = 'inline';
-    editButton.style.display = 'none';
+const inputs = $('input[type=text], input[type=radio]');
+
+editButton.on('click', () => {
+    nome = $('#nome').val();
+    cognome = $('#cognome').val();
+    email = $('#email').val();
+
+    inputs.removeAttr('disabled');
+    saveButton.show();
+    cancelButton.show();
+    editButton.hide();
 });
 
-cancelButton.addEventListener('click', function () {
-    for (var i = 0; i < inputs.length; i++) {
-        inputs[i].setAttribute('disabled', true);
-    }
-    saveButton.style.display = 'none';
-    cancelButton.style.display = 'none';
-    editButton.style.display = 'inline';
-});
+cancelButton.on('click', () => {
+    $('#nome').valnome;
+    $('#cognome').val(cognome);
+    $('#email').val(email);
 
-saveButton.addEventListener('click', function () {
-    var formData = new FormData();
-    for (var i = 0; i < inputs.length; i++) {
-        formData.append(inputs[i].id, inputs[i].value);
-    }
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'aggiornaProfilo.php', true);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == XMLHttpRequest.DONE) {
-            if (xhr.status == 200) {
-                // Update success message or handle response
-                console.log(xhr.responseText);
-            } else {
-                // Handle error
-                console.error('Error:', xhr.status);
-            }
-        }
-    };
-    xhr.send(formData);
+    inputs.attr('disabled', true);
+    saveButton.hide();
+    cancelButton.hide();
+    editButton.show();
 });

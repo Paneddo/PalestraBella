@@ -8,10 +8,24 @@ if (!isset($_SESSION["id"])) {
 }
 
 $idUtente = $_SESSION['id'];
+$conn = getConnection();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nome = $_POST['nome'] ?? '';
+    $cognome = $_POST['cognome'] ?? '';
+    $genere = $_POST['genere'] ?? '';
+
+    $conn = getConnection();
+
+    $stmt = mysqli_prepare($conn, "UPDATE utente SET nome = ?, cognome = ?, genere = ? WHERE idUtente = ?");
+    mysqli_stmt_bind_param($stmt, "ssss", $nome, $cognome, $genere, $idUtente);
+
+    mysqli_stmt_execute($stmt);
+}
+
 $corsi = array();
 
-$conn = getConnection();
-$stmt = mysqli_prepare($conn, "SELECT nome, cognome, email FROM utente WHERE idUtente = ?");
+$stmt = mysqli_prepare($conn, "SELECT nome, cognome, email, genere FROM utente WHERE idUtente = ?");
 
 mysqli_stmt_bind_param($stmt, "s", $idUtente);
 mysqli_stmt_execute($stmt);
@@ -45,26 +59,26 @@ while ($row = mysqli_fetch_assoc($result)) {
 <body>
     <?php include_once 'templates/navbar.php'; ?>
 
-    <form>
+    <form action="<?= $_SERVER['PHP_SELF']; ?>" method="post">
         <div class="form-group">
             <label for="nome">Nome</label>
-            <input type="text" value="<?php echo $utente['nome'] ?>" class="form-control" id="nome" disabled>
+            <input name="nome" type="text" value="<?= $utente['nome'] ?>" class="form-control" id="nome" disabled>
         </div>
         <div class="form-group">
             <label for="cognome">Cognome</label>
-            <input type="text" value="<?php echo $utente['cognome'] ?>" class="form-control" id="cognome" disabled>
+            <input name="cognome" type="text" value="<?= $utente['cognome'] ?>" class="form-control" id="cognome" disabled>
         </div>
 
-        <label for="sesso">Sesso</label>
-        <input type="radio" name="gender" <?php if (isset($gender) && $utente['gender'] == "female") echo "checked"; ?> value="female"> <span style="color: orange;">Female</span>
-        <input type="radio" name="gender" <?php if (isset($gender) && $utente['gender'] == "male") echo "checked"; ?> value="male"> <span style="color: orange;">Male</span>
+        <label for="genere">Sesso</label>
+        <input class="genere-radio" type="radio" name="genere" <?php if ($utente['genere'] === "f") echo "checked"; ?> value="f" disabled> <span style="color: orange;">Female</span>
+        <input class="genere-radio" type="radio" name="genere" <?php if ($utente['genere'] === "m") echo "checked"; ?> value="m" disabled> <span style="color: orange;">Male</span>
 
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" value="<?php echo $utente['email'] ?>" class="form-control" id="email" disabled>
+            <input name="email" type="email" value="<?php echo $utente['email'] ?>" class="form-control" id="email" disabled>
         </div>
         <button type="button" id="editButton">Edit</button>
-        <button type="button" id="saveButton" style="display: none;">Save</button>
+        <button type="submit" id="saveButton" style="display: none;">Save</button>
         <button type="button" id="cancelButton" style="display: none;">Cancel</button>
     </form>
     <?php if ($_SESSION['tipo'] !== 'segretaria' && count($corsi) > 0) : ?>
