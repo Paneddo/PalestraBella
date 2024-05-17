@@ -25,7 +25,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <p class="price">€<strong><?= $corso['prezzo'] ?></strong>/ora</p>
             <p class="price">Posti Liberi: <strong><?= $corso['postiliberi'] ?></strong></p>
             <a href="./.php?idCorso=<?= $corso['idCorso'] ?>" class="btn">Prenota</a>
-            <?php if ($_SESSION['tipo'] === 'segretaria') : ?>
+            <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'segretaria') : ?>
                 <a href="./modificaCorso.php?idcorso=<?= $corso['idCorso'] ?>">Modifica</a>
             <?php endif ?>
         </div>
