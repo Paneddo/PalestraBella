@@ -1,9 +1,6 @@
 <?php
-include_once "utils.php";
-
 $corsi = array();
-$conn = getConnection();
-$stmt = mysqli_prepare($conn, "SELECT idCorso, foto, nomeCorso as nome, prezzoOrario as prezzo FROM corso INNER JOIN utente ON utente.idUtente = corso.idIstruttore INNER JOIN tipologia ON tipologia.idTipologia = corso.idTipologia");
+$stmt = mysqli_prepare($conn, "SELECT corso.idCorso, foto, nomeCorso as nome, prezzoOrario as prezzo, postiliberi FROM corso INNER JOIN utente ON utente.idUtente = corso.idIstruttore INNER JOIN tipologia ON tipologia.idTipologia = corso.idTipologia INNER JOIN postiliberipercorso ON corso.idCorso = postiliberipercorso.idCorso");
 mysqli_stmt_execute($stmt);
 
 $result = mysqli_stmt_get_result($stmt);
@@ -26,6 +23,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <p class="days">Lunedì 10.00-12.00</p>
             <p class="days"> Mercoledì 10.00-12.00</p>
             <p class="price">€<strong><?= $corso['prezzo'] ?></strong>/ora</p>
+            <p class="price">Posti Liberi: <strong><?= $corso['postiliberi'] ?></strong></p>
             <a href="./prenotaCorso.php?idCorso=<?= $corso['idCorso'] ?>" class="btn">Prenota</a>
         </div>
     <?php endforeach; ?>
