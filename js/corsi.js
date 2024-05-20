@@ -18,7 +18,7 @@ $(document).ready(function () {
     });
 
     $(window).on('click', function (event) {
-        if (event.target == popup[0]) {
+        if (event.target === popup[0]) {
             popup.hide();
         }
     });

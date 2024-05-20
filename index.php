@@ -17,6 +17,10 @@ $conn = getConnection();
     background-color: black;
   }
 
+  body.lock-scroll {
+    overflow: hidden;
+  }
+
   .img-responsive {
     width: 100%;
     height: 100%;
