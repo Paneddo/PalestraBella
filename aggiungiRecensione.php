@@ -8,7 +8,7 @@ $rating = 0;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include_once "utils.php";
-    $conn = getConnection();
+    $conn = createConnection();
 
     $titolo = test_input($_POST['titolo']);
     $testo = test_input($_POST['testo']);

@@ -8,14 +8,13 @@ if (!isset($_SESSION["id"])) {
 }
 
 $idUtente = $_SESSION['id'];
-$conn = getConnection();
+$conn = createConnection();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $_POST['nome'] ?? '';
     $cognome = $_POST['cognome'] ?? '';
     $genere = $_POST['genere'] ?? '';
 
-    $conn = getConnection();
 
     $stmt = mysqli_prepare($conn, "UPDATE utente SET nome = ?, cognome = ?, genere = ? WHERE idUtente = ?");
     mysqli_stmt_bind_param($stmt, "ssss", $nome, $cognome, $genere, $idUtente);

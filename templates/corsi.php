@@ -1,34 +1,89 @@
 <?php
-$corsi = array();
-$stmt = mysqli_prepare($conn, "SELECT corso.idCorso, foto, nomeCorso, descrizioneCorso, prezzoOrario as prezzo, postiliberi, nome, cognome, email, cellulare FROM corso INNER JOIN utente ON utente.idUtente = corso.idIstruttore INNER JOIN tipologia ON tipologia.idTipologia = corso.idTipologia INNER JOIN postiliberipercorso ON corso.idCorso = postiliberipercorso.idCorso");
-mysqli_stmt_execute($stmt);
+// Connessione al database
+$conn = createConnection();
+// Query per selezionare i corsi e le lezioni associate, inclusa la tipologia dei corsi
+$sql = "SELECT corso.idCorso, corso.nomeCorso, corso.descrizioneCorso, corso.idIstruttore, utente.nome AS nomeIstruttore, utente.cognome AS cognomeIstruttore, utente.foto, email, cellulare, tipologia.nomeTipologia, tipologia.prezzoOrario,lezione.giorno, lezione.oraInizio, lezione.oraFine, postiliberi
+        FROM corso
+        LEFT JOIN lezione ON corso.idCorso = lezione.idCorso
+        LEFT JOIN utente ON corso.idIstruttore = utente.idUtente
+        LEFT JOIN tipologia ON corso.idTipologia = tipologia.idTipologia
+        LEFT JOIN postiliberipercorso ON corso.idCorso = postiliberipercorso.idCorso
+        ORDER BY corso.nomeCorso";
 
-$result = mysqli_stmt_get_result($stmt);
+$result = mysqli_query($conn, $sql);
+
+// Array per memorizzare i corsi e le loro lezioni
+$corsi = array();
+
+// Elaborazione dei risultati della query
+if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $idCorso = $row['idCorso'];
+
+        // Se il corso non esiste ancora nell'array, aggiungilo
+        if (!isset($corsi[$idCorso])) {
+            $corsi[$idCorso] = array(
+                'id' => $idCorso,
+                'nome' => $row['nomeCorso'],
+                'descrizione' => $row['descrizioneCorso'],
+                'istruttore' => array(
+                    'id' => $row['idIstruttore'],
+                    'nome' => $row['nomeIstruttore'],
+                    'cognome' => $row['cognomeIstruttore'],
+                    'foto' => $row['foto'],
+                    'email' => $row['email'],
+                    'cellulare' => $row['cellulare'],
+                ),
+                'tipologia' => array(
+                    'nome' => $row['nomeTipologia'],
+                    'prezzo' => $row['prezzoOrario'],
+                ),
+                'lezioni' => array(),
+                'postiliberi' => $row['postiliberi']
+            );
+        }
+
+        if ($row['giorno'] !== null) {
+            $corsi[$idCorso]['lezioni'][] = array(
+                'giorno' => $row['giorno'],
+                'oraInizio' => $row['oraInizio'],
+                'oraFine' => $row['oraFine']
+            );
+        }
+    }
+}
+
 mysqli_close($conn);
 
-while ($row = mysqli_fetch_assoc($result)) {
-    $corsi[] = $row;
-}
 ?>
+
 <h1>I Nostri Corsi</h1>
 <div class="courses">
     <?php foreach ($corsi as $corso) : ?>
         <div class="course">
             <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'segretaria') : ?>
-                <a href="./modificaCorso.php?idcorso=<?= $corso['idCorso'] ?>" class="edit-btn"><i class="fas fa-pen"></i></a>
+                <a href="./modificaCorso.php?idcorso=<?= $corso['id'] ?>" class="edit-btn"><i class="fas fa-pen"></i></a>
             <?php endif ?>
             <div class="circular-square">
-                <img src="./uploads/<?= htmlspecialchars($corso['foto']) ?>" alt="Immagine" class="clickable" data-istruttore='<?= htmlspecialchars(json_encode(['nome' => $corso['nome'], 'cognome' => $corso['cognome'], 'email' => $corso['email'], 'cellulare' => $corso['cellulare']])) ?>'>
+                <img src="./uploads/<?= htmlspecialchars($corso['istruttore']['foto']) ?>" alt="Immagine" class="clickable" data-istruttore='<?= htmlspecialchars(json_encode(['nome' => $corso['istruttore']['nome'], 'cognome' => $corso['istruttore']['cognome'], 'email' => $corso['istruttore']['email'], 'cellulare' => $corso['istruttore']['cellulare']])) ?>'>
             </div>
 
-            <h2><?= $corso['nomeCorso'] ?></h2>
+            <h2><?= $corso['nome'] ?></h2>
 
-            <p><?= $corso['descrizioneCorso'] ?></p>
-            <p class="days">Lunedì 10.00-12.00</p>
-            <p class="days">Mercoledì 10.00-12.00</p>
-            <p class="price">€<strong><?= $corso['prezzo'] ?></strong>/ora</p>
+            <p><?= $corso['descrizione'] ?></p>
+            <?php if (!empty($corso['lezioni'])) : ?>
+                <div class="lessons">
+                    <h3>Lezioni:</h3>
+                    <?php foreach ($corso['lezioni'] as $lezione) : ?>
+                        <p><?= $lezione['giorno'] ?> <?= $lezione['oraInizio'] ?> - <?= $lezione['oraFine'] ?></p>
+                    <?php endforeach; ?>
+                </div>
+            <?php else : ?>
+                <p>Nessuna lezione disponibile per questo corso.</p>
+            <?php endif; ?>
+            <p class="price">€<strong><?= $corso['tipologia']['prezzo'] ?></strong>/ora</p>
             <p class="price">Posti Liberi: <strong><?= $corso['postiliberi'] ?></strong></p>
-            <a href="./.php?idCorso=<?= $corso['idCorso'] ?>" class="btn">Prenota</a>
+            <a href="./.php?idCorso=<?= $corso['id'] ?>" class="btn">Prenota</a>
         </div>
     <?php endforeach; ?>
 </div>

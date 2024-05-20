@@ -16,7 +16,7 @@ include_once "utils.php";
 $idUtente = $_SESSION['id'];
 $idCorso = $_GET['idCorso'];
 
-$conn = getConnection();
+$conn = createConnection();
 $stmt = mysqli_prepare($conn, "INSERT INTO prenotazione VALUES (?, ?)");
 
 mysqli_stmt_bind_param($stmt, "ss", $idUtente, $idCorso);

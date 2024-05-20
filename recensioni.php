@@ -134,7 +134,7 @@
                 <!-- PHP per ottenere recensioni dal database -->
                 <?php
                 include_once "utils.php";
-                $conn = getConnection();
+                $conn = createConnection();
 
                 // Query per recuperare le recensioni dal database con i dati dell'utente
                 $sql = "SELECT nome, cognome, dataRecensione, tipo, titolo, testo, numeroStelle FROM recensione INNER JOIN utente ON utente.idUtente = recensione.idUtente";

@@ -5,7 +5,7 @@ if ($_SESSION['tipo'] !== 'segretaria') {
     exit();
 }
 include_once "utils.php";
-$conn = getConnection();
+$conn = createConnection();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $titolo = test_input($_POST['titolo']);

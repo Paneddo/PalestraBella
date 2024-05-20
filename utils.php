@@ -10,7 +10,7 @@ function test_input($data)
      return $data;
 }
 
-function getConnection()
+function createConnection()
 {
      $servername = "localhost";
      $username_db = "root";

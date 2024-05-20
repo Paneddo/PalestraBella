@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = test_input($_POST['email']);
     $password = test_input($_POST['password']);
 
-    $conn = getConnection();
+    $conn = createConnection();
     $stmt = mysqli_prepare($conn, "SELECT idUtente, password, tipo FROM utente WHERE email = ?");
 
     mysqli_stmt_bind_param($stmt, "s", $username);

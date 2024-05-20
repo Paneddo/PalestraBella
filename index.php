@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once "utils.php";
-$conn = getConnection();
+$conn = createConnection();
 ?>
 
 <!DOCTYPE html>

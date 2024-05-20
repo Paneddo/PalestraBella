@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!sendMail($email, 'Registrazione PalestraBella', $msg))
         return;
 
-    $conn = getConnection();
+    $conn = createConnection();
     $stmt = mysqli_prepare($conn, "INSERT INTO utente (nome, cognome, password, email, cellulare, tipo, foto) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
     mysqli_stmt_bind_param($stmt, "sssssss", $nome, $cognome, $hash, $email, $cellulare, $tipo, $filename);
