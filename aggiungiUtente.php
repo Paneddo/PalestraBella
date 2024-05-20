@@ -26,16 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_FILES['filename']['name'];
             $ext = pathinfo($name, PATHINFO_EXTENSION);
             $filename = uniqid() . '.' . $ext;
-
-            $upload_dir = './uploads/';
-            if (move_uploaded_file($tmp_name, $upload_dir . $filename)) {
-                echo "File uploaded successfully.";
-            } else {
-                echo "Failed to upload file.";
-            }
         } else {
-            echo "Error uploading file. Error code: " . $_FILES['filename']['error'];
+            $filename = 'default.png';
         }
+        $upload_dir = './uploads/';
+        move_uploaded_file($tmp_name, $upload_dir . $filename);
     }
 
     $password = randomPassword(8);
