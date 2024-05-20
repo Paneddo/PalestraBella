@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 <?php endforeach ?>
             <?php endif ?>
         </div>
-        <button type="button" onclick="addLesson()">Aggiungi lezione</button><br><br>
+        <button type="button" class="round-btn" onclick="addLesson()">Aggiungi lezione</button><br><br>
 
         <input type="hidden" name="idCorso" value="<?= $idCorso ?>" />
         <button class="round-btn" type="submit">Applica</button>

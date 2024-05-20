@@ -33,7 +33,7 @@ select {
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
     width: calc(50% - 5px);
-    margin-right: 10px; 
+    margin-right: 10px;
     background-color: black;
 }
 
