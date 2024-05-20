@@ -105,9 +105,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                             <option value="Sabato" <?php if ($lezione['giorno'] === 'Sabato') echo 'selected' ?>>Sabato</option>
                             <option value="Domenica" <?php if ($lezione['giorno'] === 'Domenica') echo 'selected' ?>>Domenica</option>
                         </select>
-                        <input type="time" name="start_time[]" value="<?= $lezione['oraInizio'] ?>" required>
-                        <input type="time" name="end_time[]" value="<?= $lezione['oraFine'] ?>" required>
+                        <br><br>
+                        <div class="time-container">
+                            <input type="time" name="start_time[]" value="<?= $lezione['oraInizio'] ?>" required>
+                            <input type="time" name="end_time[]" value="<?= $lezione['oraFine'] ?>" required>
+                        </div>
+                        <br>
                         <button type="button" onclick="removeLesson(this)">Rimuovi</button>
+                        <br><br>
                     </div>
                 <?php endforeach ?>
             <?php endif ?>
@@ -131,6 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             </select>
             <input type="time" name="start_time[]" required>
             <input type="time" name="end_time[]" required>
+            <br>
             <button type="button" onclick="removeLesson(this)">Rimuovi</button>
         </div>
     </div>
