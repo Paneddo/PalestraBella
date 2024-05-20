@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="password" name="password" placeholder="Password" id="password"><br><br>
         </div>
         <div>
-            <button type="submit">Accedi</button>
+            <button class="round-btn" type="submit">Accedi</button>
         </div>
         <?php
         if (!empty($login_error)) {

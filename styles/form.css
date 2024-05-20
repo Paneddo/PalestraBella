@@ -72,7 +72,7 @@ h1 {
     color: #3c763d;
 }
 
-button {
+.round-btn {
     text-align: center;
     border-radius: 15px;
     padding: 15px;
@@ -84,6 +84,12 @@ button {
     color: black;
     border: 2px solid #ffbf00;
     cursor: pointer;
+}
+
+#elimina {
+    margin-top: 1rem;
+    background-color: red;
+    border: 2px solid red;
 }
 
 select option {

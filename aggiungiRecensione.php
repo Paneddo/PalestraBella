@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div><br>
         <input type="hidden" id="rating" name="rating" value="-1">
         <div>
-            <button type="submit">Invia</button>
+            <button class="round-btn" type="submit">Invia</button>
         </div>
     </form>
 </body>

@@ -1,7 +1,5 @@
 <?php
-// Connessione al database
 $conn = createConnection();
-// Query per selezionare i corsi e le lezioni associate, inclusa la tipologia dei corsi
 $sql = "SELECT corso.idCorso, corso.nomeCorso, corso.descrizioneCorso, corso.idIstruttore, utente.nome AS nomeIstruttore, utente.cognome AS cognomeIstruttore, utente.foto, email, cellulare, tipologia.nomeTipologia, tipologia.prezzoOrario,lezione.giorno, lezione.oraInizio, lezione.oraFine, postiliberi
         FROM corso
         LEFT JOIN lezione ON corso.idCorso = lezione.idCorso
@@ -12,15 +10,12 @@ $sql = "SELECT corso.idCorso, corso.nomeCorso, corso.descrizioneCorso, corso.idI
 
 $result = mysqli_query($conn, $sql);
 
-// Array per memorizzare i corsi e le loro lezioni
 $corsi = array();
 
-// Elaborazione dei risultati della query
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         $idCorso = $row['idCorso'];
 
-        // Se il corso non esiste ancora nell'array, aggiungilo
         if (!isset($corsi[$idCorso])) {
             $corsi[$idCorso] = array(
                 'id' => $idCorso,
@@ -98,4 +93,4 @@ mysqli_close($conn);
         <p id="istruttoreCellulare">.</p>
     </div>
 </div>
-<script src="./js/corsi.js"></script>
+<script src="./js/popup.js"></script>
