@@ -20,7 +20,6 @@ if (isset($_GET['elimina']) && isset($_GET['idCorso'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    // Fetch course details
     $idCorso = test_input($_GET['idcorso']);
     $stmt = mysqli_prepare($conn, "SELECT * FROM corso WHERE idCorso = ?");
     mysqli_stmt_bind_param($stmt, "s", $idCorso);
