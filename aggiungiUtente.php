@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
     <?php include_once "templates/footer.html" ?>
-    <script src="js/utente.js"></script>
+    <script src="js/aggiungiUtente.js"></script>
 </body>
 
 </html>

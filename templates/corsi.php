@@ -93,4 +93,4 @@ mysqli_close($conn);
         <p id="istruttoreCellulare">.</p>
     </div>
 </div>
-<script src="./js/corsi.js"></script>
+<script src="./js/popup.js"></script>
