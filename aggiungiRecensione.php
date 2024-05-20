@@ -1,11 +1,6 @@
 <?php
 session_start();
 
-
-$titolo = '';
-$testo = '';
-$rating = 0;
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include_once "utils.php";
     $conn = createConnection();
@@ -21,6 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     mysqli_stmt_execute($stmt);
 
     mysqli_close($conn);
+
+    // Dopo aver aggiunto la recensione al database, reindirizza l'utente alla pagina recensioni.php
+    header("Location: recensioni.php");
+    exit(); // Assicura che lo script termini immediatamente dopo il reindirizzamento
 }
 ?>
 
@@ -52,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <h1>Lascia Una Recensione</h1>
 
-    <form action="<?php echo ($_SERVER['PHP_SELF']); ?>" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <div>
             <label for="titolo">Titolo:</label>
             <input type="text" name="titolo" placeholder="Titolo..." id="titolo">
@@ -70,9 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div><br>
         <input type="hidden" id="rating" name="rating" value="-1">
         <div>
-            <button class="round-btn" type="submit">Invia</button>
+            <button type="submit" class="round-btn">Invia</button>
         </div>
     </form>
+    <?php include "./templates/footer.html" ?>
 </body>
 
 </html>

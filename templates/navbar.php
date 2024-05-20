@@ -7,7 +7,7 @@
             </a>
         </div>
         <div class="navbar-right">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav2">
                 <li class="nav-item">
                     <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) === 'index.php')
                                             echo 'active' ?>" aria-current="page" href="./">Home</a>
