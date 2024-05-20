@@ -60,7 +60,6 @@ function sendMail($recipient, $subject, $message)
      $mail->Password = "jvyz tqgr dmmk ujph";
 
      $mail->SetFrom("peppegym5b@gmail.com");
-     $mail->SetFrom("peppegym5b@gmail.com");
      $mail->AddAddress($recipient);
      $mail->Subject = $subject;
      $mail->Body = $message;
