@@ -83,7 +83,7 @@ mysqli_close($conn);
             <?php endif; ?>
             <p class="price">€<strong><?= $corso['tipologia']['prezzo'] ?></strong>/ora</p>
             <p class="price">Posti Liberi: <strong><?= $corso['postiliberi'] ?></strong></p>
-            <a href="./.php?idCorso=<?= $corso['id'] ?>" class="btn">Prenota</a>
+            <a href="./prenotaCorso.php?idCorso=<?= $corso['id'] ?>" class="btn">Prenota</a>
         </div>
     <?php endforeach; ?>
 </div>
