@@ -58,7 +58,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 <body>
     <?php include_once 'templates/navbar.php'; ?>
-
+    <h1>PROFILO PERSONALE</h1>
     <form action="<?= $_SERVER['PHP_SELF']; ?>" method="post">
         <div class="form-group">
             <label for="nome">Nome</label>
@@ -77,8 +77,10 @@ while ($row = mysqli_fetch_assoc($result)) {
             <label for="email">Email</label>
             <input name="email" type="email" value="<?php echo $utente['email'] ?>" class="form-control" id="email" disabled>
         </div>
+        <br><br>
         <button type="button" id="editButton">Edit</button>
         <button type="submit" id="saveButton" style="display: none;">Save</button>
+        <br><br>
         <button type="button" id="cancelButton" style="display: none;">Cancel</button>
     </form>
     <?php if ($_SESSION['tipo'] !== 'segretaria' && count($corsi) > 0) : ?>
