@@ -12,6 +12,10 @@
                     <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'index.php')
                                             echo 'active' ?>" aria-current="page" href="./">Home</a>
                 </li>
+                <li class="nav-item">
+                        <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'login.php')
+                                                echo 'active' ?>" href="./recensioni.php">Recensioni</a>
+                    </li>
                 <?php if (!isset($_SESSION['id'])) { ?>
                     <li class="nav-item">
                         <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'login.php')
@@ -29,6 +33,10 @@
                                                     echo 'active' ?>" href="./aggiungiCorso.php">Aggiungi Corso</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'aggiungiUtente.php')
+                                                    echo 'active' ?>" href="./aggiungiUtente.php">Aggiungi Utente</a>
+                        </li>
+                                                <li class="nav-item">
                             <a class="nav-link <?php if (basename($_SERVER['PHP_SELF']) == 'aggiungiUtente.php')
                                                     echo 'active' ?>" href="./aggiungiUtente.php">Aggiungi Utente</a>
                         </li>

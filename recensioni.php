@@ -1,66 +1,43 @@
-<?php
-include_once "utils.php";
-
-$conn = getConnection();
-
-$recensioni = array();
-
-$query = "SELECT nome, cognome, dataRecensione, titolo, testo, numeroStelle FROM recensione INNER JOIN utente ON utente.idUtente = recensione.idUtente";
-
-$result = mysqli_query($conn, $query);
-mysqli_close($conn);
-
-while ($row = mysqli_fetch_assoc($result)) {
-    $recensioni[] = $row;
-}
-
-?>
+<?php session_start() ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <title>Recensioni</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <?php include "./templates/head.html" ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
+        /* Stile per la card */
         .card {
+            background-color: #333;
+            /* Grigio scuro */
             border-radius: 15px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
             margin: 0;
-            width: 600px;
-            height: 300px;
+            /* Rimuove lo spazio tra la card e il contorno giallo */
+            max-width: 590px;
+            /* Imposta una larghezza massima leggermente inferiore alla larghezza del carousel */
+            height: 290px;
+            color: white;
+            /* Colore del testo bianco */
         }
 
+        /* Stile per il carousel */
         .carousel {
             margin-top: 35px;
-            border-radius: 25px;
+            border-radius: 15px;
             border: 5px solid #FFBF00;
+            /* Aggiungi il bordo giallo */
             position: relative;
+            /* Per posizionare la striscia sotto il carousel */
             width: 600px;
             height: 300px;
+            /* Altezza modificata */
             margin-left: auto;
             margin-right: auto;
-        }
-
-        .small-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 10px;
-            margin-top: 10px;
-        }
-
-        .small-img2 {
-            width: auto;
-            height: auto;
-            border-radius: 10px;
-            margin-top: 10px;
-            margin-left: 500px;
         }
 
         .title {
@@ -77,65 +54,123 @@ while ($row = mysqli_fetch_assoc($result)) {
             left: 50%;
             transform: translateX(-50%);
             bottom: -10px;
+            /* Più in basso */
             height: 5px;
+            /* Più spessa */
             width: calc(100% - 800px);
+            /* Estende la striscia fino al testo */
             background-color: #FFBF00;
+            /* Sottolineatura gialla */
             z-index: -1;
+            /* Sposta sotto il testo */
         }
 
+        /* Stile per lo sfondo nero */
         body {
             background-color: black;
         }
 
         #imageCarousel {
-            border-radius: 20px;
+            border-radius: 15px;
             width: 600px;
-            height: 300px;
+            height: 290px;
             margin-left: auto;
             margin-right: auto;
         }
 
+        /* Stile per i bordi arrotondati dell'immagine nel secondo carousel */
         .carousel-item img {
-            border-radius: 20px;
+            max-width: 590px;
+            /* Imposta una larghezza massima leggermente inferiore alla larghezza del carousel */
+            height: auto;
+            /* Per mantenere l'aspetto proporzionato */
+            border-radius: 10px;
+            /* Aggiunge bordi arrotondati */
+            max-height: 280px;
+            /* Altezza massima dell'immagine */
         }
 
+        /* Stile per i bordi arrotondati della card nel primo carousel */
         #cardCarousel .card {
-            border-radius: 20px;
+            border-radius: 10px;
+        }
+
+        /* Stile per il testo del tipo di utente in giallo, maiuscolo e grassetto */
+        .user-type {
+            color: #FFBF00;
+            /* Giallo */
+            text-transform: uppercase;
+            /* Maiuscolo */
+            font-weight: bold;
+            /* Grassetto */
+        }
+
+        /* Stile per il colore delle stelle in giallo */
+        .fas.fa-star {
+            color: #FFBF00;
+            /* Giallo */
+        }
+
+        /* Nascondi le frecce di navigazione solo su dispositivi di grandi dimensioni */
+        @media (min-width: 768px) {
+
+            .carousel-control-prev,
+            .carousel-control-next {
+                font-size: 10px;
+                /* Riduci la dimensione dell'icona */
+            }
         }
     </style>
 </head>
 
 <body>
-    <?php
-    var_dump($recensioni);
-    ?>
+    <?php include "./templates/navbar.php" ?>
     <div class="container">
         <div class="title">
             <h2>Recensioni</h2>
         </div>
 
+        <!-- Primo carousel -->
         <div id="cardCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
+                <!-- PHP per ottenere recensioni dal database -->
                 <?php
+                include_once "utils.php";
+                $conn = getConnection();
 
-                $active = true;
-                echo '<div class="carousel-item ' . ($active ? 'active' : '') . '">';
-                echo '<div class="card">';
-                echo '<div class="card-header">' . "Andrea" . ' ' . "Crivella" . '</div>';
-                echo '<div class="card-body">';
-                echo '<h5 class="card-title">' . "Titolo" . '</h5>';
-                echo '<p class="card-text">' . "Testo" . '</p>';
-                echo '<div>';
-                for ($i = 0; $i < 3; $i++) {
-                    echo '<i class="fas fa-star"></i>';
+                // Query per recuperare le recensioni dal database con i dati dell'utente
+                $sql = "SELECT nome, cognome, dataRecensione, tipo, titolo, testo, numeroStelle FROM recensione INNER JOIN utente ON utente.idUtente = recensione.idUtente";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    // Output dei dati delle recensioni nel carousel
+                    $active = true; // Per impostare la prima recensione come attiva
+                    while ($row = $result->fetch_assoc()) {
+                        // Generazione della slide del carousel
+                        echo '<div class="carousel-item ' . ($active ? 'active' : '') . '">';
+                        echo '<div class="card">';
+                        echo '<div class="card-body">';
+                        echo '<h5 class="card-title">' . $row["nome"] . ' ' . $row["cognome"] . '</h5>'; // Nome e cognome dell'utente
+                        echo '<p class="user-type">' . strtoupper($row["tipo"]) . '</p>'; // Tipo di utente (tutto in maiuscolo)
+                        echo '<div>'; // Stelle
+                        for ($i = 0; $i < $row["numeroStelle"]; $i++) {
+                            echo '<i class="fas fa-star"></i>';
+                        }
+                        echo '</div>';
+                        echo '<h6 class="card-title">' . $row["titolo"] . '</h6>'; // Titolo della recensione
+                        echo '<p class="card-text">' . $row["testo"] . '</p>'; // Testo della recensione
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</div>';
+                        $active = false; // Imposta le prossime recensioni come non attive
+                    }
+                } else {
+                    echo "0 risultati";
                 }
-                echo '</div>';
-                echo '</div>';
-                echo '</div>';
-                echo '</div>';
-                $active = false;
+                $conn->close();
                 ?>
             </div>
+            <!-- Pulsanti di navigazione -->
             <a class="carousel-control-prev" href="#cardCarousel" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Precedente</span>
@@ -145,8 +180,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <span class="sr-only">Successivo</span>
             </a>
         </div>
-
-
+    </div>
 </body>
 
 </html>
