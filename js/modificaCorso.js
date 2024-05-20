@@ -1,6 +1,7 @@
 function addLesson() {
-    const clonedLesson = $('#lessonTemplate').clone();
-    clonedLesson.css({ display: 'block' });
+    const clonedLesson = $('#lessonTemplate .lezione').clone();
+    console.log(clonedLesson[0]);
+    clonedLesson.removeAttr('style');
     $('#lezioni').append(clonedLesson);
 }
 function removeLesson(button) {

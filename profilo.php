@@ -32,17 +32,50 @@ mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
 $utente = mysqli_fetch_assoc($result);
+$sql = "SELECT corso.idCorso, corso.nomeCorso, corso.descrizioneCorso, corso.idIstruttore, utente.nome AS nomeIstruttore, utente.cognome AS cognomeIstruttore, utente.foto, email, cellulare, lezione.giorno, lezione.oraInizio, lezione.oraFine
+        FROM corso
+        LEFT JOIN lezione ON corso.idCorso = lezione.idCorso
+        LEFT JOIN utente ON corso.idIstruttore = utente.idUtente
+        LEFT JOIN prenotazione ON prenotazione.idCorso = corso.idCorso
+        WHERE prenotazione.idUtente = " . $idUtente;
 
-$stmt = mysqli_prepare($conn, "SELECT foto, nomeCorso as nome FROM corso INNER JOIN utente ON utente.idUtente = corso.idIstruttore INNER JOIN prenotazione ON prenotazione.idCorso = corso.idCorso WHERE prenotazione.idUtente = ?");
+$result = mysqli_query($conn, $sql);
 
-mysqli_stmt_bind_param($stmt, "s", $idUtente);
-mysqli_stmt_execute($stmt);
+$corsi = array();
 
-$result = mysqli_stmt_get_result($stmt);
-mysqli_close($conn);
-while ($row = mysqli_fetch_assoc($result)) {
-    $corsi[] = $row;
+if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $idCorso = $row['idCorso'];
+
+        if (!isset($corsi[$idCorso])) {
+            $corsi[$idCorso] = array(
+                'id' => $idCorso,
+                'nome' => $row['nomeCorso'],
+                'descrizione' => $row['descrizioneCorso'],
+                'istruttore' => array(
+                    'id' => $row['idIstruttore'],
+                    'nome' => $row['nomeIstruttore'],
+                    'cognome' => $row['cognomeIstruttore'],
+                    'foto' => $row['foto'],
+                    'email' => $row['email'],
+                    'cellulare' => $row['cellulare'],
+                ),
+                'lezioni' => array(),
+            );
+        }
+
+        if ($row['giorno'] !== null) {
+            $corsi[$idCorso]['lezioni'][] = array(
+                'giorno' => $row['giorno'],
+                'oraInizio' => $row['oraInizio'],
+                'oraFine' => $row['oraFine']
+            );
+        }
+    }
 }
+
+mysqli_close($conn);
+
 ?>
 
 <!DOCTYPE html>
@@ -77,10 +110,10 @@ while ($row = mysqli_fetch_assoc($result)) {
             <input name="email" type="email" value="<?php echo $utente['email'] ?>" class="form-control" id="email" disabled>
         </div>
         <br><br>
-        <button type="button" id="editButton">Edit</button>
+        <button type="button" class="round-btn" id="editButton">Edit</button>
         <button class="round-btn" type="submit" id="saveButton" style="display: none;">Save</button>
         <br><br>
-        <button type="button" id="cancelButton" style="display: none;">Cancel</button>
+        <button type="button" class="round-btn danger" id="cancelButton" style="display: none;">Cancel</button>
     </form>
     <?php if ($_SESSION['tipo'] !== 'segretaria' && count($corsi) > 0) : ?>
         <h1>I tuoi Corsi</h1>
@@ -88,20 +121,40 @@ while ($row = mysqli_fetch_assoc($result)) {
             <?php foreach ($corsi as $corso) : ?>
                 <div class="course">
                     <div class="circular-square">
-                        <img src="./uploads/<?= $corso['foto'] ?>" alt="Immagine">
+                        <img src="./uploads/<?= htmlspecialchars($corso['istruttore']['foto']) ?>" alt="Immagine" class="clickable" data-istruttore='<?= htmlspecialchars(json_encode(['nome' => $corso['istruttore']['nome'], 'cognome' => $corso['istruttore']['cognome'], 'email' => $corso['istruttore']['email'], 'cellulare' => $corso['istruttore']['cellulare']])) ?>'>
                     </div>
 
                     <h2><?= $corso['nome'] ?></h2>
 
-                    <p class="days">Lunedì 10.00-12.00</p>
-                    <p class="days"> Mercoledì 10.00-12.00</p>
+                    <p><?= $corso['descrizione'] ?></p>
+                    <?php if (!empty($corso['lezioni'])) : ?>
+                        <div class="lessons">
+                            <h3>Lezioni:</h3>
+                            <?php foreach ($corso['lezioni'] as $lezione) : ?>
+                                <p><?= $lezione['giorno'] ?> <?= $lezione['oraInizio'] ?> - <?= $lezione['oraFine'] ?></p>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php else : ?>
+                        <p>Nessuna lezione disponibile per questo corso.</p>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         </div>
 
 
     <?php endif; ?>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close">&times;</span>
+            <h2>Dettagli dell'istruttore</h2>
+            <img id="istruttoreFoto">
+            <p id="istruttoreNome">.</p>
+            <p id="istruttoreEmail">.</p>
+            <p id="istruttoreCellulare">.</p>
+        </div>
+    </div>
     <?php include_once "templates/footer.html" ?>
+    <script src="./js/popup.js"></script>
     <script src="./js/modificaProfilo.js"></script>
 </body>
 

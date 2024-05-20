@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     gap: 20px;
+    font-family: 'Port Lligat Slab', sans-serif;
 }
 
 .course {

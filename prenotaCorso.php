@@ -17,6 +17,17 @@ $idUtente = $_SESSION['id'];
 $idCorso = $_GET['idCorso'];
 
 $conn = createConnection();
+
+$stmt = mysqli_prepare($conn, "SELECT postiliberi FROM postiliberipercorso WHERE idCorso = ?");
+mysqli_stmt_bind_param($stmt, "s", $idCorso);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+$row = mysqli_fetch_assoc($result);
+if ($row['postiliberi'] == 0) {
+    echo 'Corso Pieno!';
+    exit();
+}
+
 $stmt = mysqli_prepare($conn, "INSERT INTO prenotazione VALUES (?, ?)");
 
 mysqli_stmt_bind_param($stmt, "ss", $idUtente, $idCorso);

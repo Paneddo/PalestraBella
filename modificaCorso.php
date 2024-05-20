@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                             <input type="time" name="end_time[]" value="<?= $lezione['oraFine'] ?>" required>
                         </div>
                         <br>
-                        <button type="button" onclick="removeLesson(this)">Rimuovi</button>
+                        <button type="button" onclick="removeLesson(this)">X</button>
                         <br><br>
                     </div>
                 <?php endforeach ?>
@@ -131,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         <input type="hidden" name="idCorso" value="<?= $idCorso ?>" />
         <button class="round-btn" type="submit">Applica</button>
-        <a href="<?= $_SERVER['PHP_SELF'] ?>?idCorso=<?= $idCorso ?>&elimina=true"><button type="button" class="round-btn" id="elimina">Elimina</button></a>
+        <a href="<?= $_SERVER['PHP_SELF'] ?>?idCorso=<?= $idCorso ?>&elimina=true"><button type="button" class="round-btn danger">Elimina</button></a>
     </form>
 
     <div id="lessonTemplate" style="display: none;">
@@ -145,10 +145,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 <option value="Sabato">Sabato</option>
                 <option value="Domenica">Domenica</option>
             </select>
-            <input type="time" name="start_time[]" required>
-            <input type="time" name="end_time[]" required>
+            <br><br>
+            <div class="time-container">
+                <input type="time" name="start_time[]" required>
+                <input type="time" name="end_time[]" required>
+            </div>
             <br>
-            <button type="button" onclick="removeLesson(this)">Rimuovi</button>
+            <button type="button" onclick="removeLesson(this)">X</button>
+            <br><br>
         </div>
     </div>
 
