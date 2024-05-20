@@ -98,7 +98,7 @@ mysqli_close($conn);
             <?php endforeach ?>
         </select><br><br>
 
-        <button type="submit">Aggiungi Corso</button>
+        <button class="round-btn" type="submit">Aggiungi Corso</button>
     </form>
     <?php include_once "templates/footer.html" ?>
 </body>

@@ -78,7 +78,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
         <br><br>
         <button type="button" id="editButton">Edit</button>
-        <button type="submit" id="saveButton" style="display: none;">Save</button>
+        <button class="round-btn" type="submit" id="saveButton" style="display: none;">Save</button>
         <br><br>
         <button type="button" id="cancelButton" style="display: none;">Cancel</button>
     </form>

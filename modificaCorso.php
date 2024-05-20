@@ -9,6 +9,16 @@ if (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== 'segretaria') {
 
 $conn = createConnection();
 
+if (isset($_GET['elimina']) && isset($_GET['idCorso'])) {
+    $stmt = mysqli_prepare($conn, "DELETE FROM corso WHERE idCorso = ?");
+    mysqli_stmt_bind_param($stmt, "s", $_GET['idCorso']);
+    mysqli_stmt_execute($stmt);
+
+    mysqli_close($conn);
+    header('Location: ./index.php');
+    exit();
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Fetch course details
     $idCorso = test_input($_GET['idcorso']);
@@ -44,22 +54,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     mysqli_stmt_bind_param($stmt, "ssss", $titolo, $descrizione, $istruttoreId, $idCorso);
     mysqli_stmt_execute($stmt);
 
-    $stmt = mysqli_prepare($conn, "DELETE FROM lezione WHERE idCorso = ?");
-    mysqli_stmt_bind_param($stmt, "s", $idCorso);
-    mysqli_stmt_execute($stmt);
-
-    $days = $_POST['day'];
-    $startTimes = $_POST['start_time'];
-    $endTimes = $_POST['end_time'];
-    $stmt = mysqli_prepare($conn, "INSERT INTO lezione (idLezione, idCorso, giorno, oraInizio, oraFine) VALUES (?, ?, ?, ?, ?)");
-    for ($i = 0; $i < count($days); $i++) {
-        $day = test_input($days[$i]);
-        $startTime = test_input($startTimes[$i]);
-        $endTime = test_input($endTimes[$i]);
-        mysqli_stmt_bind_param($stmt, "sssss", $i, $idCorso, $day, $startTime, $endTime);
+    if (isset($_POST['day'])) {
+        $stmt = mysqli_prepare($conn, "DELETE FROM lezione WHERE idCorso = ?");
+        mysqli_stmt_bind_param($stmt, "s", $idCorso);
         mysqli_stmt_execute($stmt);
-    }
 
+        $days = $_POST['day'];
+        $startTimes = $_POST['start_time'];
+        $endTimes = $_POST['end_time'];
+        $stmt = mysqli_prepare($conn, "INSERT INTO lezione (idLezione, idCorso, giorno, oraInizio, oraFine) VALUES (?, ?, ?, ?, ?)");
+        for ($i = 0; $i < count($days); $i++) {
+            $day = test_input($days[$i]);
+            $startTime = test_input($startTimes[$i]);
+            $endTime = test_input($endTimes[$i]);
+            mysqli_stmt_bind_param($stmt, "sssss", $i, $idCorso, $day, $startTime, $endTime);
+            mysqli_stmt_execute($stmt);
+        }
+    }
     mysqli_close($conn);
     header('Location: ./index.php');
     exit();
@@ -87,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         <label for="istruttore">Istruttore:</label><br>
         <select id="istruttore" name="istruttore" required>
             <?php foreach ($istruttori as $istruttore) : ?>
-                <option value="<?= $istruttore['id'] ?>" <?php if ($istruttore['id'] === $corso['idIstruttore']) echo 'selected' ?>><?= $istruttore['nome'] . " " . $istruttore['cognome'] ?></option>
+                <option value="<?= $istruttore['id'] ?>" <?php if ($istruttore['id'] == $corso['idIstruttore']) echo 'selected' ?>><?= $istruttore['nome'] . " " . $istruttore['cognome'] ?></option>
             <?php endforeach ?>
         </select><br><br>
 
@@ -115,7 +126,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         <button type="button" onclick="addLesson()">Aggiungi lezione</button><br><br>
 
         <input type="hidden" name="idCorso" value="<?= $idCorso ?>" />
-        <button type="submit">Applica</button>
+        <button class="round-btn" type="submit">Applica</button>
+        <a href="<?= $_SERVER['PHP_SELF'] ?>?idCorso=<?= $idCorso ?>&elimina=true"><button type="button" class="round-btn" id="elimina">Elimina</button></a>
     </form>
 
     <div id="lessonTemplate" style="display: none;">
@@ -136,5 +148,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     </div>
 
     <script src="./js/modificaCorso.js"></script>
+    <?php include 'templates/footer.html' ?>
 
 </html>
