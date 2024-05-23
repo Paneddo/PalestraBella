@@ -20,7 +20,7 @@ editButton.on('click', () => {
 });
 
 cancelButton.on('click', () => {
-    $('#nome').valnome;
+    $('#nome').val(nome);
     $('#cognome').val(cognome);
     $('#email').val(email);
 
