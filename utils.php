@@ -57,7 +57,7 @@ function sendMail($recipient, $subject, $message)
      $mail->SMTPAuth = true;
 
      $mail->Username = "peppegym5b@gmail.com";
-     $mail->Password = "jvyz tqgr dmmk ujph";
+     $mail->Password = "gmail_token";
 
      $mail->SetFrom("peppegym5b@gmail.com");
      $mail->AddAddress($recipient);
