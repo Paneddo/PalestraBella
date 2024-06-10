@@ -1,5 +1,11 @@
 <?php
 
+// Quindi viene richiesta questa pagina direttamente
+if (strcasecmp(str_replace('\\', '/', __FILE__), $_SERVER['SCRIPT_FILENAME']) == 0) {
+     header('Location: ./index.php');
+     exit();
+}
+
 use PHPMailer\PHPMailer\PHPMailer;
 
 function test_input($data)
@@ -57,7 +63,7 @@ function sendMail($recipient, $subject, $message)
      $mail->SMTPAuth = true;
 
      $mail->Username = "peppegym5b@gmail.com";
-     $mail->Password = "gmail_token";
+     $mail->Password = $_ENV['gmail_token'];
 
      $mail->SetFrom("peppegym5b@gmail.com");
      $mail->AddAddress($recipient);
